@@ -1,33 +1,61 @@
 <template>
   <div class="reco-bgm-panel">
     <!-- 播放器 -->
-    <audio id="bgm" :src="audio[curIndex].url" ref="bgm" @ended="bgmEnded" @canplay="playReady" @timeupdate="timeUpdate"></audio>
+    <audio
+      id="bgm"
+      :src="audio[curIndex].url"
+      ref="bgm"
+      @ended="bgmEnded"
+      @canplay="playReady"
+      @timeupdate="timeUpdate"
+    ></audio>
     <module-transition :position="floatPosition">
-      <div v-show="isFloat" @click="changeBgmInfo(false)" class="reco-float-box" :style="floatStyle">
-        <img :src="audio[curIndex].cover">
+      <div
+        v-show="isFloat"
+        @click="changeBgmInfo(false)"
+        class="reco-float-box"
+        :style="floatStyle"
+      >
+        <img :src="audio[curIndex].cover" />
       </div>
     </module-transition>
     <module-transition>
       <div class="reco-bgm-box" v-show="!isFloat" :style="panelPosition">
         <!-- 封面 -->
-        <div class="reco-bgm-cover" @click="changeBgmInfo(false)" :style="`background-image:url(${audio[curIndex].cover})`">
+        <div
+          class="reco-bgm-cover"
+          @click="changeBgmInfo(false)"
+          :style="`background-image:url(${audio[curIndex].cover})`"
+        >
           <!-- mini操作栏 -->
           <div v-show="isMini" class="mini-operation">
-            <i v-show="this.curPlayStatus === 'playing' && isMini" @click.stop="pauseBgm" class="reco-bgm reco-bgm-pause"></i>
-            <i v-show="this.curPlayStatus === 'paused' && isMini" @click.stop="playBgm" class="reco-bgm reco-bgm-play"></i>
+            <i
+              v-show="this.curPlayStatus === 'playing' && isMini"
+              @click.stop="pauseBgm"
+              class="reco-bgm reco-bgm-pause"
+            ></i>
+            <i
+              v-show="this.curPlayStatus === 'paused' && isMini"
+              @click.stop="playBgm"
+              class="reco-bgm reco-bgm-play"
+            ></i>
           </div>
           <!-- 错误信息显示 -->
-          <div v-show="isFault" class="falut-message">
-            播放失败
-          </div>
+          <div v-show="isFault" class="falut-message">播放失败</div>
         </div>
         <module-transition duration=".15">
           <!-- 歌曲信息栏 -->
           <div v-show="!isMini" class="reco-bgm-info">
             <!-- 歌曲名 -->
-            <div class="info-box"><i class="reco-bgm reco-bgm-music music"></i>{{ audio[curIndex].name }}</div>
+            <div class="info-box">
+              <i class="reco-bgm reco-bgm-music music"></i
+              >{{ audio[curIndex].name }}
+            </div>
             <!-- 艺术家名 -->
-            <div class="info-box"><i class="reco-bgm reco-bgm-artist"></i>{{ audio[curIndex].artist }}</div>
+            <div class="info-box">
+              <i class="reco-bgm reco-bgm-artist"></i
+              >{{ audio[curIndex].artist }}
+            </div>
             <!-- 歌曲进度条 -->
             <div class="reco-bgm-progress">
               <div class="progress-bar" @click="progressJump">
@@ -37,11 +65,28 @@
             <!-- 歌曲操作栏 -->
             <div class="reco-bgm-operation">
               <i class="reco-bgm reco-bgm-last last" @click="playLast"></i>
-              <i v-show="curPlayStatus === 'playing'" @click="pauseBgm" class="reco-bgm reco-bgm-pause pause"></i>
-              <i v-show="curPlayStatus === 'paused'" ref="play" @click="playBgm" class="reco-bgm reco-bgm-play play"></i>
+              <i
+                v-show="curPlayStatus === 'playing'"
+                @click="pauseBgm"
+                class="reco-bgm reco-bgm-pause pause"
+              ></i>
+              <i
+                v-show="curPlayStatus === 'paused'"
+                ref="play"
+                @click="playBgm"
+                class="reco-bgm reco-bgm-play play"
+              ></i>
               <i class="reco-bgm reco-bgm-next next" @click="playNext"></i>
-              <i v-show="!isMute" @click="muteBgm" class="reco-bgm reco-bgm-volume1 volume"></i>
-              <i v-show="isMute" @click="unMuteBgm" class="reco-bgm reco-bgm-mute mute"></i>
+              <i
+                v-show="!isMute"
+                @click="muteBgm"
+                class="reco-bgm reco-bgm-volume1 volume"
+              ></i>
+              <i
+                v-show="isMute"
+                @click="unMuteBgm"
+                class="reco-bgm reco-bgm-mute mute"
+              ></i>
               <div class="volume-bar" @click="volumeJump">
                 <div class="bar" ref="vbar"></div>
               </div>
@@ -50,8 +95,12 @@
         </module-transition>
         <!-- 缩放按钮 -->
         <module-transition duration=".15">
-          <div v-show="!isMini" @click="changeBgmInfo(true)" class="reco-bgm-left-box">
-            <i class="reco-bgm reco-bgm-left" ></i>
+          <div
+            v-show="!isMini"
+            @click="changeBgmInfo(true)"
+            class="reco-bgm-left-box"
+          >
+            <i class="reco-bgm reco-bgm-left"></i>
           </div>
         </module-transition>
       </div>
@@ -84,6 +133,8 @@ function rotate () {
     fm.style.transition = '0.1s linear'
   }, 100)
 }
+
+
 import volume from './mixins/volume.js'
 import ModuleTransition from './ModuleTransition'
 export default {
@@ -172,8 +223,12 @@ export default {
         //     })
         //   }
         // } 
+        let _this = this;
         this.$nextTick(() => {
-          this.autoplay && this.playBgm();
+          document.getElementById('bgm').addEventListener("canplaythrough", function () {
+            _this.autoplay && _this.playBgm();
+          });
+          
         })
         
       }
@@ -280,6 +335,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@require './assets/iconfont/iconfont.css'
-@import './styles/index.styl'
+@require './assets/iconfont/iconfont.css';
+@import './styles/index.styl';
 </style>
