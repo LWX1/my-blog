@@ -3,6 +3,7 @@ module.exports = {
   "title": "lwx",
   "description": "",
   "dest": "public",
+  "port": "7777",
   "head": [
     [
       "link",
@@ -191,7 +192,7 @@ module.exports = {
         repo: 'my-blog',
         clientId: 'b6a4f7588abe3db6ea0f',
         clientSecret: 'ce8368cce4befb265c0f3e477c2ad8a422fe0f4c',
-        // autoCreateIssue:true
+        autoCreateIssue:true
       },
 
     ]
