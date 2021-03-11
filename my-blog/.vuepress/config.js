@@ -191,7 +191,7 @@ module.exports = {
         owner: 'LWX1',
         repo: 'my-blog',
         clientId: 'b6a4f7588abe3db6ea0f',
-        clientSecret: 'ce8368cce4befb265c0f3e477c2ad8a422fe0f4c',
+        clientSecret: '3929461a8af15c5a15df5547fe809a4549335593',
         autoCreateIssue:true
       },
 
