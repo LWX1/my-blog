@@ -223,13 +223,13 @@ export default {
         //     })
         //   }
         // } 
-        let _this = this;
-        this.$nextTick(() => {
-          document.getElementById('bgm').addEventListener("canplaythrough", function () {
-            _this.autoplay && _this.playBgm();
-          });
+        // let _this = this;
+        // this.$nextTick(() => {
+        //   document.getElementById('bgm').addEventListener("canplaythrough", function () {
+        //     _this.autoplay && _this.playBgm();
+        //   });
           
-        })
+        // })
         
       }
       // 播放状态下歌曲准备完成立即播放

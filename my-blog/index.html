@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css" lang="stylesheet">
+    #box {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        left: 0;
+        /* transition: left 5s linear; */
+
+    }
+    /* @keyframes animation {
+        0% {
+            left: 0
+        }
+        100% {
+            left: calc(100% - 100px)
+        }
+    } */
+    </style>
+</head>
+
+<body>
+    <!-- <div id="box"></div> -->
+    <canvas id="myCanvas" width="1000" height="200"></canvas>
+    <script type="text/javascript">
+    var canvas = document.getElementById("myCanvas");
+    var xx = canvas.getContext("2d");
+    var dir = 100;
+    var width = 1000;
+    var height = 200;
+    var exp = 1;//像素移动的位置，正数的时候向下，负数向上
+
+    function fff(){
+        xx.clearRect(0,0,width,height);
+        xx.fillStyle = "blue";//定义颜色
+        xx.beginPath();//重新开始画，防止冲突重叠
+        xx.arc(dir,100,20,0,Math.PI*2,1);//x,y坐标,半径,圆周率，
+        xx.closePath();//结束画布，防止冲突重叠
+        xx.fill();//渲染结束
+        dir = dir + exp;
+        if(dir == 0 || dir==width){
+        exp = exp * (-1);//掉头位置
+        }
+        requestAnimationFrame(fff)
+    }
+    fff()
+    // let elem = document.getElementById('box');
+    // let postion = true;  // true向右false向左
+    // let left = 0;
+    // function animation() {
+    //     if(postion) {
+    //         left ++;
+    //         elem.style.left = left+'px';
+    //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
+    //             postion = false;
+    //         }
+    //     }else {
+    //         left --;
+    //         elem.style.left = left+'px';
+    //         if(left < 0) {
+    //             postion = true;
+    //         }
+        
+    //     }
+    //     requestAnimationFrame(animation)
+    // }
+    // animation();
+    // let postion = true;  // true向右false向左
+    // let left = 0;
+    // let timer = setInterval(function(){ 
+    //     if(postion) {
+    //         left ++;
+    //         elem.style.left = left+'px';
+    //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
+    //             postion = false;
+    //         }
+    //     }else {
+    //         left --;
+    //         elem.style.left = left+'px';
+    //         if(left < 0) {
+    //             postion = true;
+    //         }
+        
+    //     }
+    // },16);
+        // function Parent(age,name) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.arr = [1];
+        // }
+        // function Son() {
+        //     this.age = 10;
+        // }
+        // var parent = new Parent(18, '小明');
+        // Son.prototype = parent;
+        // parent.name = '小绿';
+
+        // var son = new Son()
+        // console.log(son)
+        // console.log(son.name);
+        // console.log(son.age);
+        // console.log(son.arr);
+        // son.name = '笑话';
+        // son.arr.push(2);
+
+        // var son1 = new Son()
+        // console.log(son1.name);
+        // console.log(son1.arr);
+
+        // Parent.prototype.say = function() {
+        //     console.log(123)
+        // }
+        // function Parent(obj) {
+        //     this.name = this.name || obj.name;
+        //     this.age = this.age || obj.age;
+        //     this.arr = this.arr || [1];
+        // }
+        // function Son(val) {
+        //     this.name = '小青';
+        //     Parent.call(this, val); // 核心
+        // }
+
+        // var son = new Son({
+        //     age: 18,
+        //     name: '小明'
+        // })
+        // console.log(son)
+        // console.log(son.name);
+        // console.log(son.age);
+        // console.log(son.arr);
+        // console.log(son.say);
+        // son.name = '笑话';
+        // son.arr.push(2);
+
+        // var son1 = new Son({
+        //     age: 16,
+        //     name: '小华'
+        // })
+        // console.log(son1.name);
+        // console.log(son1.arr);
+        // console.log(son1.age);
+
+        // function Parent(obj) {
+        //     if(obj) {
+        //         this.name = obj.name;
+        //         this.age = obj.age;
+        //     }
+        //     this.arr = [1];
+        // }
+        // Parent.prototype.eat = function () {
+        //     console.log(`${this.name}在吃饭`) // 核心)
+        // }
+
+        // function Son(val) {
+        //     Parent.call(this, val); // 核心
+        // }
+        // Son.prototype = new Parent({
+        //     name: '小花',
+        //     age: 12
+        // }); // 核心
+
+        // var son = new Son({
+        //     age: 18,
+        //     name: '小明'
+        // })
+        // console.log(son)
+        // console.log(son.name);
+        // console.log(son.age);
+        // console.log(son.arr);
+        // console.log(son.eat());
+        // son.name = '笑话';
+        // son.arr.push(2);
+
+        // var son1 = new Son()
+        // console.log(son1);
+        // console.log(son1.name);
+        // console.log(son1.arr);
+        // console.log(son1.age);
+        // console.log(son1.eat());
+        // console.log(son1.eat === son.eat);
+
+        // function Mother(obj) {
+        //     var f = function() {};
+        //     f.prototype = obj;
+        //     return new f();
+        // }
+
+        // function Parent(obj) {
+        //     if(obj) {
+        //         this.name = obj.name;
+        //         this.age = obj.age;
+        //     }
+        //     this.arr = [1];
+        // }
+        // Parent.prototype.eat = function () {
+        //     console.log(`${this.name}在吃饭`) // 核心
+        // }
+
+        // function Son(val) {
+        //     Parent.call(this, val); // 核心
+        // }
+        // // Son.prototype = new Parent 拆分为下面三段代码，即去除实例拷贝的父类
+        // var proto = Mother(Parent.prototype); // 核心
+        // proto.constructor = Son;            // 核心
+        // Son.prototype = proto;              // 核心
+
+        // var son = new Son({
+        //     age: 18,
+        //     name: '小明'
+        // })
+        // console.log(son)
+        // console.log(son.name);
+        // console.log(son.age);
+        // console.log(son.arr);
+        // console.log(son.eat());
+        // son.name = '笑话';
+        // son.arr.push(2);
+
+        // var son1 = new Son();
+        // console.log(son1)
+        // console.log(son1.name);
+        // console.log(son1.arr);
+        // console.log(son1.age);
+        // console.log(son1.eat());
+        // console.log(son1.eat === son.eat);
+
+        // class Parent {
+        //     constructor(age,name) {
+        //         this.age = age;
+        //         this.name = name;
+        //     }
+        //     say() {
+        //         console.log('你好'+this.name)
+        //     }
+        // }
+
+        // class Son extends Parent {
+        //     constructor(age,name) {
+        //         super(age,name)
+        //     }
+        // }
+
+        // var son = new Son(14,'小明');
+        // console.log(son)
+        // console.log(son.say())
+    </script>
+</body>
+
+</html>

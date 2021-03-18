@@ -29,27 +29,27 @@ module.exports = {
         "icon": "reco-home"
       },
       {
-        "text": "TimeLine",
+        "text": "时间",
         "link": "/timeline/",
         "icon": "reco-date"
       },
       {
-        "text": "Docs",
+        "text": "文档",
         "icon": "reco-message",
         "items": [
-          {
-            "text": "vuepress-reco",
-            "link": "/docs/theme-reco/"
-          }
+          // {
+          //   "text": "vuepress-reco",
+          //   "link": "/docs/theme-reco/"
+          // }
         ]
       },
       {
-        "text": "Contact",
+        "text": "链接",
         "icon": "reco-message",
         "items": [
           {
             "text": "GitHub",
-            "link": "https://github.com/recoluan",
+            "link": "https://github.com/LWX1",
             "icon": "reco-github"
           }
         ]
@@ -67,11 +67,11 @@ module.exports = {
     "blogConfig": {
       "category": {
         "location": 2,
-        "text": "Category"
+        "text": "分类"
       },
       "tag": {
         "location": 3,
-        "text": "Tag"
+        "text": "标签"
       }
     },
     "friendLink": [
