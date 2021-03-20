@@ -3,6 +3,7 @@ module.exports = {
   "title": "lwx",
   "description": "",
   "dest": "public",
+  "host": '127.0.0.1',
   "port": "7777",
   "head": [
     [
@@ -34,13 +35,17 @@ module.exports = {
         "icon": "reco-date"
       },
       {
-        "text": "文档",
+        "text": "项目",
         "icon": "reco-message",
         "items": [
-          // {
-          //   "text": "vuepress-reco",
-          //   "link": "/docs/theme-reco/"
-          // }
+          {
+            "text": "three.js",
+            "link": "/docs/three/"
+          },
+          {
+            "text": "erp",
+            "link": "http://www.linwenx.cn:8000/"
+          }
         ]
       },
       {
@@ -88,6 +93,17 @@ module.exports = {
       //   "link": "https://vuepress-theme-reco.recoluan.com"
       // }
     ],
+    "valineConfig": {
+      appId: '424p1W6C702Vkqt4ecYO7yMy-gzGzoHsz',// your appId
+      appKey: 'TM5jPiO71J9FfohbQ2mtQmA3' // your appKey
+    },
+    // "vssueConfig": {
+    //   platform: 'github',
+    //   owner: 'LWX1',
+    //   repo: 'my-blog',
+    //   clientId: 'b6a4f7588abe3db6ea0f',
+    //   clientSecret: '3929461a8af15c5a15df5547fe809a4549335593'
+    // },
     "logo": "/img/logo.png",
     "search": false,
     "searchMaxSuggestions": 10,
@@ -182,19 +198,19 @@ module.exports = {
         httpUrl: "/img/yh.png"     // 绝对路径
       }
     }],
-    [
-      '@vssue/vuepress-plugin-vssue', {
-        // 设置 `platform` 而不是 `api`
-        platform: 'github',
-        locale: 'zh', //语言
-        // 其他的 Vssue 配置
-        owner: 'LWX1',
-        repo: 'my-blog',
-        clientId: 'b6a4f7588abe3db6ea0f',
-        clientSecret: '3929461a8af15c5a15df5547fe809a4549335593',
-        autoCreateIssue:true
-      },
+    // [
+    //   '@vssue/vuepress-plugin-vssue', {
+    //     // 设置 `platform` 而不是 `api`
+    //     platform: 'github',
+    //     locale: 'zh', //语言
+    //     // 其他的 Vssue 配置
+    //     owner: 'LWX1',
+    //     repo: 'my-blog',
+    //     clientId: 'b6a4f7588abe3db6ea0f',
+    //     clientSecret: '3929461a8af15c5a15df5547fe809a4549335593',
+    //     autoCreateIssue: true
+    //   },
 
-    ]
+    // ]
   ],
 }
