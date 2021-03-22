@@ -126,7 +126,12 @@ module.exports = {
   },
 
   "plugins": [
-    
+    [
+      'sitemap', {
+        hostname: 'http://www.linwenx.cn:8001'
+      },
+    ],
+    'vuepress-plugin-baidu-autopush',
     [require('./plugins/player/index'), {
       audios: [
         // 本地文件示例
