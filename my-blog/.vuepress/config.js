@@ -1,7 +1,7 @@
 
 module.exports = {
   "title": "lwx",
-  "description": "",
+  "description": "lwx",
   "dest": "public",
   "host": '127.0.0.1',
   "port": "7777",
@@ -18,8 +18,16 @@ module.exports = {
       {
         "name": "viewport",
         "content": "width=device-width,initial-scale=1,user-scalable=no"
+      },
+      
+    ],
+    [
+      "meta",
+      {
+        "name": "baidu-site-verification",
+        "content":"code-RrWvROGK0J"
       }
-    ]
+    ],
   ],
   "theme": "reco",
   "themeConfig": {
