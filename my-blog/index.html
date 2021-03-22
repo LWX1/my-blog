@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style type="text/css" lang="stylesheet">
-    #box {
+        /* #box {
         position: relative;
         width: 100px;
         height: 100px;
         background-color: red;
         left: 0;
-        /* transition: left 5s linear; */
+       
 
-    }
-    /* @keyframes animation {
+    } */
+        /* @keyframes animation {
         0% {
             left: 0
         }
@@ -28,97 +28,99 @@
 
 <body>
     <!-- <div id="box"></div> -->
-    <canvas id="canvas" width="500" height="500" style="background-color: #ccc;"></canvas>
+    <canvas id="canvas" width="500" height="500"></canvas>
     <script type="text/javascript">
-    function *gener(x) {
-        console.log(x);
-        let res = x * (yield ('holle','123'));
-        console.log(res)
-        return res;
-    }
-    var g = gener(10);
-    console.log(g);
-    var g1 = g.next();
-    console.log(g1);
-    var g2 = g.next(20,5);
-    console.log(g2)
-    // console.log(g2)
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    console.log(ctx);
-    // 矩形
-    // ctx.fillStyle="red";
-    // ctx.fillRect(100,100,200,100)
-    // ctx.strokeStyle="red";
-    // ctx.strokeRect(200,200,100,200);
-    
-    // 路径
-    // ctx.beginPath();
-    // ctx.moveTo(50,100);
-    // ctx.lineTo(200,200);
-    // ctx.lineTo(20,20);
-    // ctx.lineTo(70,100);
-    // ctx.closePath();
-    // ctx.strokeStyle="green";
-    // ctx.stroke();
-    // ctx.fillStyle="orange";
-    // ctx.fill();
 
-    // 圆弧
-    function drawCtx(x,y,radiu,begin,end,direction) {
-        ctx.beginPath();
-        ctx.arc(x,y,radiu,begin,end,direction)
-        ctx.strokeStyle="green";
-        ctx.stroke();
-        ctx.fillStyle="orange";
-        ctx.fill();
-    }
-    drawCtx(100,100,50,0,2*Math.PI,false)
-    drawCtx(250,100,50,2,3,false); // 绘制圆弧
-    drawCtx(400,100,50,0,3,false); // 绘制圆弧
 
-    drawCtx(100,250,50,1,8,false); // 绘制圆弧
-    drawCtx(250,250,50,1,8,true); // 绘制圆弧
-    drawCtx(400,250,50,8,10,true); // 绘制圆弧
-    // let elem = document.getElementById('box');
-    // let postion = true;  // true向右false向左
-    // let left = 0;
-    // function animation() {
-    //     if(postion) {
-    //         left ++;
-    //         elem.style.left = left+'px';
-    //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
-    //             postion = false;
-    //         }
-    //     }else {
-    //         left --;
-    //         elem.style.left = left+'px';
-    //         if(left < 0) {
-    //             postion = true;
-    //         }
-        
-    //     }
-    //     requestAnimationFrame(animation)
-    // }
-    // animation();
-    // let postion = true;  // true向右false向左
-    // let left = 0;
-    // let timer = setInterval(function(){ 
-    //     if(postion) {
-    //         left ++;
-    //         elem.style.left = left+'px';
-    //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
-    //             postion = false;
-    //         }
-    //     }else {
-    //         left --;
-    //         elem.style.left = left+'px';
-    //         if(left < 0) {
-    //             postion = true;
-    //         }
-        
-    //     }
-    // },16);
+        // function *gener(x) {
+        //     console.log(x);
+        //     let res = x * (yield ('holle','123'));
+        //     console.log(res)
+        //     return res;
+        // }
+        // var g = gener(10);
+        // console.log(g);
+        // var g1 = g.next();
+        // console.log(g1);
+        // var g2 = g.next(20,5);
+        // console.log(g2)
+        // // console.log(g2)
+        // var canvas = document.getElementById("canvas");
+        // var ctx = canvas.getContext("2d");
+        // console.log(ctx);
+        // 矩形
+        // ctx.fillStyle="red";
+        // ctx.fillRect(100,100,200,100)
+        // ctx.strokeStyle="red";
+        // ctx.strokeRect(200,200,100,200);
+
+        // 路径
+        // ctx.beginPath();
+        // ctx.moveTo(50,100);
+        // ctx.lineTo(200,200);
+        // ctx.lineTo(20,20);
+        // ctx.lineTo(70,100);
+        // ctx.closePath();
+        // ctx.strokeStyle="green";
+        // ctx.stroke();
+        // ctx.fillStyle="orange";
+        // ctx.fill();
+
+        // 圆弧
+        // function drawCtx(x, y, radiu, begin, end, direction) {
+        //     ctx.beginPath();
+        //     ctx.arc(x, y, radiu, begin, end, direction)
+        //     ctx.strokeStyle = "green";
+        //     ctx.stroke();
+        //     ctx.fillStyle = "orange";
+        //     ctx.fill();
+        // }
+        // drawCtx(100, 100, 50, 0, 2 * Math.PI, false)
+        // drawCtx(250, 100, 50, 2, 3, false); // 绘制圆弧
+        // drawCtx(400, 100, 50, 0, 3, false); // 绘制圆弧
+
+        // drawCtx(100, 250, 50, 1, 8, false); // 绘制圆弧
+        // drawCtx(250, 250, 50, 1, 8, true); // 绘制圆弧
+        // drawCtx(400, 250, 50, 8, 10, true); // 绘制圆弧
+        // let elem = document.getElementById('box');
+        // let postion = true;  // true向右false向左
+        // let left = 0;
+        // function animation() {
+        //     if(postion) {
+        //         left ++;
+        //         elem.style.left = left+'px';
+        //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
+        //             postion = false;
+        //         }
+        //     }else {
+        //         left --;
+        //         elem.style.left = left+'px';
+        //         if(left < 0) {
+        //             postion = true;
+        //         }
+
+        //     }
+        //     requestAnimationFrame(animation)
+        // }
+        // animation();
+        // let postion = true;  // true向右false向左
+        // let left = 0;
+        // let timer = setInterval(function(){ 
+        //     if(postion) {
+        //         left ++;
+        //         elem.style.left = left+'px';
+        //         if(left > elem.offsetParent.offsetWidth-elem.offsetWidth) {
+        //             postion = false;
+        //         }
+        //     }else {
+        //         left --;
+        //         elem.style.left = left+'px';
+        //         if(left < 0) {
+        //             postion = true;
+        //         }
+
+        //     }
+        // },16);
         // function Parent(age,name) {
         //     this.name = name;
         //     this.age = age;

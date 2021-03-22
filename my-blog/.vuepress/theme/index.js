@@ -2,7 +2,7 @@ const path = require('path')
 
 // Theme API.
 module.exports = (options, ctx) => ({
-  alias () {
+  alias() {
     const { themeConfig, siteConfig } = ctx
     // resolve algolia
     const isAlgoliaSearch = (
@@ -23,6 +23,15 @@ module.exports = (options, ctx) => ({
     '@vuepress-reco/loading-page',
     '@vuepress-reco/pagation',
     '@vuepress-reco/comments',
+    // ['@vuepress-reco/comments', {
+    //   choosen: 'valine',
+    //   solution: 'valine',
+    //   options: {
+    //     el: '#valine-vuepress-comment',
+    //     appId: '424p1W6C702Vkqt4ecYO7yMy-gzGzoHsz',// your appId
+    //     appKey: 'TM5jPiO71J9FfohbQ2mtQmA3' // your appKey
+    //   }
+    // }],
     '@vuepress/active-header-links',
     ['@vuepress/medium-zoom', {
       selector: '.theme-reco-content:not(a) > img'

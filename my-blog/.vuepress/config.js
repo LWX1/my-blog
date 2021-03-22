@@ -23,6 +23,7 @@ module.exports = {
   ],
   "theme": "reco",
   "themeConfig": {
+    'subSidebar': 'auto',
     "nav": [
       {
         "text": "首页",
@@ -43,6 +44,10 @@ module.exports = {
             "link": "/docs/three/"
           },
           {
+            "text": "canvas",
+            "link": "/docs/canvas/"
+          },
+          {
             "text": "erp",
             "link": "http://www.linwenx.cn:8000/"
           }
@@ -61,11 +66,13 @@ module.exports = {
       }
     ],
     "sidebar": {
-      "/docs/theme-reco/": [
-        "",
-        "theme",
+      "/docs/three/": [
+        "introduce",
         "plugin",
-        "api"
+        
+      ],
+      "/docs/canvas/": [
+        "boll",
       ]
     },
     "type": "blog",
@@ -93,6 +100,7 @@ module.exports = {
       //   "link": "https://vuepress-theme-reco.recoluan.com"
       // }
     ],
+    
     "valineConfig": {
       appId: '424p1W6C702Vkqt4ecYO7yMy-gzGzoHsz',// your appId
       appKey: 'TM5jPiO71J9FfohbQ2mtQmA3' // your appKey
@@ -118,6 +126,7 @@ module.exports = {
   },
 
   "plugins": [
+    
     [require('./plugins/player/index'), {
       audios: [
         // 本地文件示例
@@ -189,6 +198,7 @@ module.exports = {
         }
       }
     ],
+    
     ["sakura", {
       num: 20,  // 默认数量
       show: true, //  是否显示
