@@ -25,7 +25,7 @@ module.exports = {
       "meta",
       {
         "name": "baidu-site-verification",
-        "content":"code-RrWvROGK0J"
+        "content":"code-Le1KLKUNen"
       }
     ],
   ],
