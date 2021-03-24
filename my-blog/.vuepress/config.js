@@ -44,8 +44,8 @@ module.exports = {
         "icon": "reco-date"
       },
       {
-        "text": "项目",
-        "icon": "reco-message",
+        "text": "文档",
+        "icon": "reco-blog",
         "items": [
           {
             "text": "three.js",
@@ -56,8 +56,22 @@ module.exports = {
             "link": "/docs/canvas/"
           },
           {
+            "text": "typescript",
+            "link": "/docs/typescript/"
+          }
+        ]
+      },
+      {
+        "text": "项目",
+        "icon": "reco-document",
+        "items": [
+          {
             "text": "erp",
             "link": "http://www.linwenx.cn:8000/"
+          },
+          {
+            "text": "外卖",
+            "link": "http://www.linwenx.cn:9000/"
           }
         ]
       },
@@ -81,7 +95,10 @@ module.exports = {
       ],
       "/docs/canvas/": [
         "boll",
-      ]
+      ],
+      "/docs/typescript/": [
+        "type",
+      ],
     },
     "type": "blog",
     "blogConfig": {
