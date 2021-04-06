@@ -60,7 +60,8 @@ module.exports = (options, ctx) => ({
           path: '/timeline/',
           layout: 'TimeLines',
           scopeLayout: 'TimeLine'
-        }
+        },
+        
       ]
     }],
     'vuepress-plugin-smooth-scroll',

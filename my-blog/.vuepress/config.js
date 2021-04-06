@@ -116,7 +116,7 @@ module.exports = {
         "title": "忆回",
         "desc": "梦开始的地方",
         "email": "1722844165@qq.com",
-        "link": "https://www.recoluan.com"
+        "link": "https://www.linwenx.cn:8001"
       },
       // {
       //   "title": "vuepress-theme-reco",
@@ -254,3 +254,4 @@ module.exports = {
     // ]
   ],
 }
+

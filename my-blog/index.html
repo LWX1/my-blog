@@ -35,13 +35,19 @@
             height: 200px;
             margin: 20px;
         }
+
+        .box {
+            height: 100px;
+            background-color: #ccc;
+        }
     </style>
 </head>
 
 <body>
+    <div class="box" id="btn"></div>
     <!-- <div id="box"></div> -->
-    <div class="container">
-        <img src="./bj.png" is-loading="false"
+    <!-- <div class="container">
+        <img id="img2" src="./bj.png" is-loading="false"
             data-loading="https://user-gold-cdn.xitu.io/2020/3/2/17098f2cc313203e?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" />
         <img src="./bj.png" is-loading="false"
             data-loading="https://user-gold-cdn.xitu.io/2020/3/2/17098f2cc313203e?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" />
@@ -105,9 +111,161 @@
             data-loading="https://user-gold-cdn.xitu.io/2020/3/2/17098f2cc313203e?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" />
         <img id="img" src="./bj.png" is-loading="false"
             data-loading="https://user-gold-cdn.xitu.io/2020/3/2/17098f2cc313203e?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" />
-    </div>
+    </div> -->
     <canvas id="canvas" width="500" height="500"></canvas>
     <script type="text/javascript">
+    // var bar = 456;
+    // function bar() {
+    //     console.log(123)
+    // }
+    // console.log(bar);
+    // bar = 789;
+    // console.log(bar);
+    // console.log(bar());
+    // 提升
+    var bar = function() {
+        console.log(234)
+    }
+    var bar;
+    console.log(bar)
+    console.log(bar())
+    bar = 789;
+    console.log(bar);
+    console.log(bar());
+        // var a = 1;
+        // var b = 2;
+
+        // // IIFE 函数自执行，函数体内拥有终于自己的块级作用域
+        // (function () {
+        //     //声明变量 b
+        //     var b = 0;
+
+        //     if (true) {
+        //         //因为 a 在底下声明了，故变量提升
+        //         console.log(a); //  undefined
+        //         //赋值 b
+        //         b = 3;
+
+        //         function b() {} //对外层作用域的 b 变量进行赋值操作
+        //         b = 4;
+        //         c = 5;
+        //         console.log(b) // 4
+        //     }
+
+        //     var a = 6;
+        //     console.log(b) // 3 
+        // })()
+
+        // console.log(a, b, c) //1，2，5
+
+        // function Foo() {
+        //     getName = function () {
+        //         console.log(1);
+        //     };
+        //     console.log(1111111)
+        //     return this;
+        // }
+
+        // Foo.getName = function () {
+        //     console.log(2);
+        // }
+
+        // Foo.prototype.getName = function () {
+        //     console.log(3);
+        // }
+
+        // var getName = function () {
+        //     console.log(4);
+        // }
+
+        // function getName() {
+        //     console.log(5);
+        // }
+
+        // Foo.getName(); 
+
+        // getName(); 
+
+        // Foo().getName(); 
+
+        // getName(); 
+
+        // new Foo.getName() 
+
+        // new Foo().getName(); 
+
+        // new new Foo().getName(); 
+
+
+        // var img = document.querySelectorAll('#img2');
+        // var index = 0;
+        // var clientHeight = document.documentElement.clientHeight || document.body.clientHeight; // 视口
+        // function loadingImg() {
+        //     for (var i = index; i < img.length; i++) {
+        //         // offsetTop-scroolTop<clientHeight
+        //         var bound = img[i].getBoundingClientRect();
+        //         console.log(bound)
+        //         if (bound.top <= clientHeight && img[i].getAttribute('is-loading') == 'false') {
+        //             index = i;
+        //             lazy(img[i]);
+        //         }
+        //         // console.log(img[i].offsetTop, scrollHeight, clientHeight)
+        //     }
+        // }
+
+        // function lazy(dom) {
+        //     var url = dom.getAttribute('data-loading');
+        //     dom.src = url;
+        //     dom.setAttribute('is-loading', 'true');
+        // }
+        // loadingImg()
+        // window.addEventListener('scroll', function () {
+        //     loadingImg();
+        // })
+        // var data = [2, 4, 1, 5, 6];
+        // console.log('原reduce')
+        // var result = data.reduce((lastItem, currentItem,id,arr) => {
+        //     console.log(lastItem, currentItem, id, arr);
+        //     return lastItem+currentItem;
+        // },2)
+        // console.log(result);
+        // console.log(data)
+        // console.log('手写reduce')
+        // Array.prototype.myReduce = function (fn, lastItem) {
+
+        //     if (Object.prototype.toString.call(fn) != '[object Function]') {
+        //         throw 'params not function'
+        //     }
+        //     var content = this;
+        //     var index;
+        //     var sum;
+        //     index = arguments.length == 1? 1: 0;
+        //     sum = arguments.length == 1? content[0]: lastItem;
+        //     for (let i = index; i < content.length; i++) {
+        //         sum = fn(sum, content[i], i, content);  
+        //     };
+        //     return sum
+
+        // }
+        // var res = data.myReduce(function (lastItem, currentItem, id, arr) {
+        //     console.log(lastItem, currentItem, id, arr);
+        //     return lastItem+currentItem;
+        // },2)
+        // console.log(res)
+        // console.log(data)
+        // document.getElementById('btn').addEventListener('click', function() {
+        //     console.log(123)
+        // })
+        // var dom = document.getElementById('canvas');
+        //     dom.addEventListener('click', function() {
+        //         Promise.resolve().then(() => {console.log(1)})
+        //         console.log(2)
+        //     })
+        //     dom.addEventListener('click', function() {
+        //         Promise.resolve().then(() => {console.log(3)})
+        //         console.log(4)
+        //     })
+        //     dom.click();
         // document.body.addEventListener('click', function () {
         //     console.log(window.innerHeight)
         //     console.log(document.body.clientHeight);
@@ -139,22 +297,22 @@
         // window.addEventListener('scroll', function() {
         //     loadingImg();
         // })
-        const io = new IntersectionObserver(callback)
-        let imgs = document.querySelectorAll('[data-loading]') // 将图片的真实url设置为data-src src属性为占位图 元素可见时候替换src
-        function callback(entries) {
-            
-            entries.forEach((item) => { // 遍历entries数组
-                console.log(item)
-                if (item.isIntersecting) { // 当前元素可见
-                    item.target.src = item.target.dataset.loading // 替换src
-                    io.unobserve(item.target) // 停止观察当前元素 避免不可见时候再次调用callback函数
-                }
-            })
-        }
+        // const io = new IntersectionObserver(callback)
+        // let imgs = document.querySelectorAll('[data-loading]') // 将图片的真实url设置为data-src src属性为占位图 元素可见时候替换src
+        // function callback(entries) {
 
-        imgs.forEach((item) => { // io.observe接受一个DOM元素，添加多个监听 使用forEach
-            io.observe(item)
-        })
+        //     entries.forEach((item) => { // 遍历entries数组
+        //         console.log(item)
+        //         if (item.isIntersecting) { // 当前元素可见
+        //             item.target.src = item.target.dataset.loading // 替换src
+        //             io.unobserve(item.target) // 停止观察当前元素 避免不可见时候再次调用callback函数
+        //         }
+        //     })
+        // }
+
+        // imgs.forEach((item) => { // io.observe接受一个DOM元素，添加多个监听 使用forEach
+        //     io.observe(item)
+        // })
 
         // console.log(bound)
         // getBoundingClientRect()
