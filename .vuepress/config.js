@@ -39,6 +39,18 @@ module.exports = {
 				icon: "reco-blog",
 				items: [
 					{
+						text: "react",
+						link: "/docs/react/",
+					},
+					{
+						text: "vue",
+						link: "/docs/vue/",
+					},
+					{
+						text: "typescript",
+						link: "/docs/typescript/",
+					},
+					{
 						text: "three.js",
 						link: "/docs/three/",
 					},
@@ -46,26 +58,22 @@ module.exports = {
 						text: "canvas",
 						link: "/docs/canvas/",
 					},
-					{
-						text: "typescript",
-						link: "/docs/typescript/",
-					},
 				],
 			},
-			{
-				text: "项目",
-				icon: "reco-document",
-				items: [
-					{
-						text: "erp",
-						link: "http://www.linwenx.cn:8000/",
-					},
-					{
-						text: "外卖",
-						link: "http://www.linwenx.cn:9000/",
-					},
-				],
-			},
+			// {
+			// 	text: "项目",
+			// 	icon: "reco-document",
+			// 	items: [
+			// 		{
+			// 			text: "erp",
+			// 			link: "http://www.linwenx.cn:8000/",
+			// 		},
+			// 		{
+			// 			text: "外卖",
+			// 			link: "http://www.linwenx.cn:9000/",
+			// 		},
+			// 	],
+			// },
 			{
 				text: "链接",
 				icon: "reco-message",
