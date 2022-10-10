@@ -87,6 +87,13 @@ module.exports = {
 			},
 		],
 		sidebar: {
+			"/docs/react/": [
+				"event_事件绑定",
+				"component_捕获错误",
+				"组件通讯",
+				"diff",
+				"fiber",
+			],
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
 			"/docs/typescript/": ["type"],
