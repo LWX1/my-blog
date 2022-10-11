@@ -93,6 +93,7 @@ module.exports = {
 				"组件通讯",
 				"diff",
 				"fiber",
+				"生命周期",
 			],
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
