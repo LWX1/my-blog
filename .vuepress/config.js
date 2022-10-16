@@ -47,6 +47,10 @@ module.exports = {
 						link: "/docs/vue/",
 					},
 					{
+						text: "webpack",
+						link: "/docs/webpack/",
+					},
+					{
 						text: "typescript",
 						link: "/docs/typescript/",
 					},
@@ -94,10 +98,13 @@ module.exports = {
 				"diff",
 				"fiber",
 				"生命周期",
+				"hooks",
 			],
+			"/docs/vue/": ["communicate", "diff"],
+			"/docs/webpack/": ["base", "loader", "plugin", "optimization"],
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
-			"/docs/typescript/": ["type"],
+			"/docs/typescript/": ["type", "highType"],
 		},
 		type: "blog",
 		blogConfig: {

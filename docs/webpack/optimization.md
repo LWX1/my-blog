@@ -1,6 +1,6 @@
 ---
 title: 手写loader,plugin
-date: 2020-10-3
+date: 2020-10-5
 isShowComments: false
 ---
 
@@ -24,20 +24,20 @@ resolveLoader: {
 
 ## 开发准则
 
-- 单一原则
-  一个 loaders 只做单一任务；这样易于维护，也便于链式调用。
-- 链式调用
-  顺序链式调用每个 loader
-- 无状态原则
-  转换不同模块，loader 中不保留状态
-- 模块化
-  loader 生成的模块和普通模块遵循相同的设计原则，输入和输出均为字符串。
-- 绝对路径
-  使用 loader-utils 中的 stringifyRequest 方法，将绝对路径和相对路径。
+-   单一原则
+    一个 loaders 只做单一任务；这样易于维护，也便于链式调用。
+-   链式调用
+    顺序链式调用每个 loader
+-   无状态原则
+    转换不同模块，loader 中不保留状态
+-   模块化
+    loader 生成的模块和普通模块遵循相同的设计原则，输入和输出均为字符串。
+-   绝对路径
+    使用 loader-utils 中的 stringifyRequest 方法，将绝对路径和相对路径。
 
 ## 注意
 
-- 导出的字符串应该使用 module.export 保存；这样才是使得导出的字符串是可运行的包；
+-   导出的字符串应该使用 module.export 保存；这样才是使得导出的字符串是可运行的包；
 
 ## 简单同步 loader
 
@@ -82,9 +82,9 @@ urlLoader.raw = true;
 module.exports = urlLoader;
 ```
 
-- loader-utils getOptions 获取配置 loader 时的 options 参数数据;parseQuery("?param=a")解析字符模板为对象;stringifyRequest(this, "loader/index.js") 将绝对路径转为相对路径
+-   loader-utils getOptions 获取配置 loader 时的 options 参数数据;parseQuery("?param=a")解析字符模板为对象;stringifyRequest(this, "loader/index.js") 将绝对路径转为相对路径
 
-- mime 获取文件扩展名
+-   mime 获取文件扩展名
 
 ## 异步 loader
 
@@ -135,56 +135,56 @@ module.exports = myXlsxLoader;
 
 ## plugin 插件的开发准则
 
-- 一个 js 类或函数，函数的 prototype 上拥有 apply 方法
-- 绑定 webpack 自身的事件钩子 compiler。
-- 处理 webpack 内部实例的数据
-- 处理完成后 webpack 回调
+-   一个 js 类或函数，函数的 prototype 上拥有 apply 方法
+-   绑定 webpack 自身的事件钩子 compiler。
+-   处理 webpack 内部实例的数据
+-   处理完成后 webpack 回调
 
 ## compiler 常用钩子
 
-- afterEnvironment
-  在编译器环境设置完成后调用
-- entryOption
-  在 webpack 选项中的 entry 被处理后调用，回调参数：context, entry
-- run
-  在开始读取 records 之前调用 回调参数 compiler
-- beforeCompile
-  在编译之前调用，可用于修改 compilation 参数；回调参数为 normalModuleFactory,contextModuleFactory,
-- compile
-  在编译时被调用，即 beforeCompile 之后，回调参数 normalModuleFactory,contextModuleFactory,
-- compilation
-  compilation 创建之后执行；回调参数 compilation, normalModuleFactory,contextModuleFactory
-- emit
-  输出 asset 到 output 目录之前执行；回调参数 compilation
-- assetEmitted
-  输出 asset 时执行；此钩子可访问输出的 asset 相关信息，如输出路径和字节内容；回调参数 file, info
-- done
-  在 compilation 完成时执行；回调参数 stats
-- failed
-  在 compilation 失败时调用。回调参数 error
+-   afterEnvironment
+    在编译器环境设置完成后调用
+-   entryOption
+    在 webpack 选项中的 entry 被处理后调用，回调参数：context, entry
+-   run
+    在开始读取 records 之前调用 回调参数 compiler
+-   beforeCompile
+    在编译之前调用，可用于修改 compilation 参数；回调参数为 normalModuleFactory,contextModuleFactory,
+-   compile
+    在编译时被调用，即 beforeCompile 之后，回调参数 normalModuleFactory,contextModuleFactory,
+-   compilation
+    compilation 创建之后执行；回调参数 compilation, normalModuleFactory,contextModuleFactory
+-   emit
+    输出 asset 到 output 目录之前执行；回调参数 compilation
+-   assetEmitted
+    输出 asset 时执行；此钩子可访问输出的 asset 相关信息，如输出路径和字节内容；回调参数 file, info
+-   done
+    在 compilation 完成时执行；回调参数 stats
+-   failed
+    在 compilation 失败时调用。回调参数 error
 
 ## compilation 常用钩子
 
-- buildModule
-  模块构建开始之前触发，用于修改模块；回调参数 module
-- succeedModule
-  模块构建成功时触发；回调参数 module
-- failedModule
-  模块构建失败时触发；回调参数 module,error
-- finishModules
-  所有模块完成么有错误时触发；回调参数 modules
-- optimizeModules
-  模块优化开始时调用；回调参数 modules
-- afterOptimizeChunks
-  chunk 优化完成后触发；回调参数 chunks
-- afterOptimizeTree
-  在依赖树优化成功完成之后调用。回调参数 chunks modules
+-   buildModule
+    模块构建开始之前触发，用于修改模块；回调参数 module
+-   succeedModule
+    模块构建成功时触发；回调参数 module
+-   failedModule
+    模块构建失败时触发；回调参数 module,error
+-   finishModules
+    所有模块完成么有错误时触发；回调参数 modules
+-   optimizeModules
+    模块优化开始时调用；回调参数 modules
+-   afterOptimizeChunks
+    chunk 优化完成后触发；回调参数 chunks
+-   afterOptimizeTree
+    在依赖树优化成功完成之后调用。回调参数 chunks modules
 
 ## compiler -> compilation 过程
 
-- compiler.make
-- compilation 的操作
-- compiler.afterCompile
+-   compiler.make
+-   compilation 的操作
+-   compiler.afterCompile
 
 ### 署名 plugin 和获取打包后的 js 大小
 
