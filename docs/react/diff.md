@@ -43,3 +43,63 @@ categories:
 2. 对比<font color="orange">key</font>，发现新旧集合有移动和增删操作；
 
 -   如[1,2,3,4,5] ==> [1,3,2,5,6]：先移动 2 到 3 后面，没有 4 节点，则删除，再新增 6 节点到 5 的后面
+
+### 流程
+
+通过 patch(oldVnode,Vnode)比较是否相同 isSameVnode?不相同，Vnode 代替 oldVnode,并返回 Vnode。  
+相同：通过 patchVode 比较，分为四种情况
+
+1. oldVnode 有子节点，Vnode 没有
+2. oldVnode 没有子节点，Vnode 有
+3. 都只有文本节点
+4. 都有子节点
+
+#### patch
+
+```
+function patch (oldVnode, vnode) {
+    // some code
+    if (sameVnode(oldVnode, vnode)) {
+        patchVnode(oldVnode, vnode)
+    } else {
+        const oEl = oldVnode.el // 当前oldVnode对应的真实元素节点
+        let parentEle = api.parentNode(oEl)  // 父元素
+        createEle(vnode)  // 根据Vnode生成新元素
+        if (parentEle !== null) {
+            api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl)) // 将新元素添加进父元素
+            api.removeChild(parentEle, oldVnode.el)  // 移除以前的旧元素节点
+            oldVnode = null
+        }
+    }
+    // some code
+    return vnode
+}
+```
+
+#### patchVnode
+
+```
+patchVnode (oldVnode, vnode) {
+    // 获取真实的dom
+    const el = vnode.el = oldVnode.el
+    let i, oldCh = oldVnode.children, ch = vnode.children
+    // 虚拟dom和老dom相同
+    if (oldVnode === vnode) return
+    // 都有文本节点且不相等，把真实dom的文本设置为vnode的文本节点。
+    if (oldVnode.text !== null && vnode.text !== null && oldVnode.text !== vnode.text) {
+        api.setTextContent(el, vnode.text)
+    }else {
+        updateEle(el, vnode, oldVnode)
+        // oldVnode和Vnode都有子节点
+        if (oldCh && ch && oldCh !== ch) {
+            updateChildren(el, oldCh, ch)
+        // oldVode没有，Vnode有
+        }else if (ch){
+            createEle(vnode) //create el's children dom
+        / oldVode有，Vnode没有
+        }else if (oldCh){
+            api.removeChildren(el)
+        }
+    }
+}
+```
