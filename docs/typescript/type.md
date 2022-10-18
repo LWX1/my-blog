@@ -1,5 +1,5 @@
 ---
-title: 类型
+title: 数据类型
 date: 2020-06-10
 isShowComments: false
 tags:

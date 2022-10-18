@@ -104,7 +104,7 @@ module.exports = {
 			"/docs/webpack/": ["base", "loader", "plugin", "optimization"],
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
-			"/docs/typescript/": ["type", "highType"],
+			"/docs/typescript/": ["type", "highType", "type和interface"],
 		},
 		type: "blog",
 		blogConfig: {
