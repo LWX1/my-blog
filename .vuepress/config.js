@@ -62,6 +62,10 @@ module.exports = {
 						text: "canvas",
 						link: "/docs/canvas/",
 					},
+					{
+						text: "性能分析优化",
+						link: "/docs/performance/",
+					},
 				],
 			},
 			// {
@@ -105,6 +109,7 @@ module.exports = {
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
 			"/docs/typescript/": ["type", "highType", "type和interface"],
+			"/docs/performance/": ["指标分析", "指标优化"],
 		},
 		type: "blog",
 		blogConfig: {

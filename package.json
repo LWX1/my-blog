@@ -4,6 +4,7 @@
   "author": "reco_luan",
   "scripts": {
     "dev": "vuepress dev . --open --host \"localhost\"",
+    "start": "yarn dev",
     "build": "vuepress build ."
   },
   "devDependencies": {
