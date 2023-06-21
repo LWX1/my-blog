@@ -68,20 +68,17 @@ module.exports = {
 					},
 				],
 			},
-			// {
-			// 	text: "项目",
-			// 	icon: "reco-document",
-			// 	items: [
-			// 		{
-			// 			text: "erp",
-			// 			link: "http://www.linwenx.cn:8000/",
-			// 		},
-			// 		{
-			// 			text: "外卖",
-			// 			link: "http://www.linwenx.cn:9000/",
-			// 		},
-			// 	],
-			// },
+			{
+				text: "项目",
+				icon: "reco-document",
+				items: [
+					{
+						text: "文档在线预览",
+						link: "http://niubiplus.buzz/fileViewer",
+					},
+					
+				],
+			},
 			{
 				text: "链接",
 				icon: "reco-message",
