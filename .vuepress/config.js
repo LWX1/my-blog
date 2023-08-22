@@ -35,6 +35,16 @@ module.exports = {
 				icon: "reco-date",
 			},
 			{
+				text: "规范",
+				icon: "reco-blog",
+				items: [
+					{
+						text: "团队规范",
+						link: "/docs/standard/",
+					},
+				],
+			},
+			{
 				text: "文档",
 				icon: "reco-blog",
 				items: [
@@ -69,7 +79,8 @@ module.exports = {
 					{
 						text: "python",
 						link: "/docs/python/",
-					}
+					},
+					
 				],
 			},
 			{
@@ -91,8 +102,9 @@ module.exports = {
 				],
 			},
 			{
+				
 				text: "链接",
-				icon: "reco-message",
+				icon: "reco-Book24Filled",
 				items: [
 					{
 						text: "GitHub",
@@ -119,6 +131,7 @@ module.exports = {
 			"/docs/typescript/": ["type", "highType", "type和interface"],
 			"/docs/performance/": ["指标分析", "指标优化"],
 			"/docs/python/": ["爬虫"],
+			"/docs/standard/": ["css", "git", "js", "vue_react", "axios", "router"],
 		},
 		type: "blog",
 		blogConfig: {
