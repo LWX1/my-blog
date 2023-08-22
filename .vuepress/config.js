@@ -66,6 +66,10 @@ module.exports = {
 						text: "性能分析优化",
 						link: "/docs/performance/",
 					},
+					{
+						text: "python",
+						link: "/docs/python/",
+					}
 				],
 			},
 			{
@@ -76,7 +80,14 @@ module.exports = {
 						text: "文档在线预览",
 						link: "http://niubiplus.buzz/fileViewer",
 					},
-					
+					{
+						text: "vpn",
+						link: "https://linwx.niubiplus.buzz:5555",
+					},
+					{
+						text: "微信机器人",
+						link: "http://niubiplus.buzz/lwxWx",
+					}
 				],
 			},
 			{
@@ -107,6 +118,7 @@ module.exports = {
 			"/docs/canvas/": ["boll"],
 			"/docs/typescript/": ["type", "highType", "type和interface"],
 			"/docs/performance/": ["指标分析", "指标优化"],
+			"/docs/python/": ["爬虫"],
 		},
 		type: "blog",
 		blogConfig: {
