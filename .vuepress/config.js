@@ -174,7 +174,7 @@ module.exports = {
 		[
 			"sitemap",
 			{
-				hostname: "http://www.linwenx.cn:8001",
+				hostname: "http://niubiplus.buzz",
 			},
 		],
 		"vuepress-plugin-baidu-autopush",
