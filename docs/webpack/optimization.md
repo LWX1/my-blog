@@ -43,18 +43,18 @@ resolveLoader: {
 
 怎么进来，怎么出去；
 
-```
+```js
 module.exports = function(source, map){
     return source
 }
-<!-- 提示 -->
-不能使用箭头函数，因为loader内部都是需要通过this调用，比如this.sourceMap判断是否生成sourceMap
+// 提示 
+// 不能使用箭头函数，因为loader内部都是需要通过this调用，比如this.sourceMap判断是否生成sourceMap
 ```
 
 ### 处理 console 的 loader
 
-```
-<!-- 清空console.log -->
+```js
+// 清空console.log 
 module.exports = function(source){
     console.log(typeof source, source); // string 和 引入的文件字符串
     return source.replace(/console\.log\(.*\);?\n/g, '');
@@ -63,7 +63,7 @@ module.exports = function(source){
 
 ### 手写 url-loader
 
-```
+```js
 const loaderUtils = require("loader-utils");
 const mime = require("mime");
 
@@ -96,7 +96,7 @@ sourceMap:得出原内容的 sourceMap
 
 ### less-loader
 
-```
+```js
 const less = require("less");
 function loader(source) {
   const callback = this.async();
@@ -110,9 +110,9 @@ module.exports = loader;
 
 ### xlsx-loader
 
-```
+```js
 const xlsx = require('node-xlsx')
-<!-- 读取xlsx文件转成json输出 -->
+// 读取xlsx文件转成json输出 
 function myXlsxLoader(source) {
     const sheets = xlsx.parse(source);
     const dataObj = {};
@@ -188,8 +188,8 @@ module.exports = myXlsxLoader;
 
 ### 署名 plugin 和获取打包后的 js 大小
 
-```
-<!-- plugin配置 -->
+```js
+// plugin配置 
 const myPlugin = require('../plugins/my-plugin')
 
 new myPlugin({
@@ -199,7 +199,7 @@ new myPlugin({
     phone: 13134
     `
 }),
-<!-- 插件 -->
+// 插件 
 class MyPlugin {
     constructor(options) {
         this.name = options.name || '';
@@ -224,7 +224,7 @@ class MyPlugin {
             }
         }
       }
-      <!-- 保存文件的大小文件 -->
+      // 保存文件的大小文件
       compilation.assets["manifest.json"] = {
         source() {
           return JSON.stringify(manifest);

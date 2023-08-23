@@ -16,7 +16,7 @@ categories:
 
 -   捕获错误的两个重要生命周期<font color="orange"> static getDerivedStateFromError</font>和<font color="orange"> componentDidCatch </font>
 
-```
+```js
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -45,7 +45,7 @@ class ErrorBoundary extends React.Component {
 
 -   使用
 
-```
+```js
 root.render(
 	<>
 		<div>222</div>
@@ -83,7 +83,7 @@ Something went wrong.
 
 -   当一些错误边界组件无法捕获到的错误，我们还可以通过监听 onerror 事件来捕获
 
-```
+```js
 window.addEventListener("error", function (event) {
     console.log(event);
 });

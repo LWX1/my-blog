@@ -18,9 +18,9 @@ proxy 是对目标对象的一个代理，任何对目标对象的操作都要�
 
 1. 对象篇
 
-```
+```js
 let handler = {
-    <!-- 获取时触发 -->
+    // 获取时触发 
     get: function(target, name) {
         console.log('get:', target, name);
         if(target.hasOwnProperty(name)) {
@@ -30,23 +30,23 @@ let handler = {
             return undefined
         }
     },
-    <!-- 赋值时触发 -->
+    // 赋值时触发 
     set: function(target, name, receiver) {
         console.log('set:', target, name, receiver)
         target[name] = receiver;
         return
     },
-    <!-- 获取原型触发 -->
+    // 获取原型触发 
     getPrototypeOf(target) {
         console.log('getPrototypeOf:', target)
         return target
     },
-    <!-- 监控Object.defineProperty -->
+    // 监控Object.defineProperty 
     defineProperty: function(target, prop, descriptor) {
         console.log('defineProperty: ', target, prop, descriptor);
         return true;
     },
-    <!-- 监听属性删除 -->
+    // 监听属性删除 
     deleteProperty: function (target, name) {
 		console.log("deleteProperty: ", target, name);
 		if (target.hasOwnProperty(name)) {
@@ -56,7 +56,7 @@ let handler = {
 			return false;
 		}
 	},
-    <!-- 监听Object.getOwnPropertyDescriptor 获取属性配置 -->
+    // 监听Object.getOwnPropertyDescriptor 获取属性配置 
     getOwnPropertyDescriptor: function (target, name) {
 		console.log("getOwnPropertyDescriptor: ", target, name);
 		return {
@@ -66,34 +66,34 @@ let handler = {
 			writable: true,
 		};
 	},
-    <!-- 监听in -->
+    // 监听in 
     has: function (target, name) {
 		console.log("has: ", target, name);
 		return true;
 	},
-    <!--
+    /** 
         监听Object.isExtensible 是否可扩展
         Object.preventExtensions(p)、Object.seal(p)或Object.freeze(p)阻止扩展
         Object.preventExtensions(p)无法添加新属性
         Object.seal(p) 所有属性不可配置
         Object.freeze(p) 不可扩展，不可配置，也不可改写，变成一个仅可以枚举的只读常量
-    -->
+    */
     isExtensible: function (target) {
 		console.log("isExtensible:", target);
 		return true; // 也可以 return 1; 等表示为 true 的值
 	},
-<!-- 监听Object.preventExtensions -->
+    // 监听Object.preventExtensions 
     preventExtensions: function (target) {
 		console.log("preventExtensions：", target);
 		Object.preventExtensions(target);
 		return true;
 	},
-    <!-- 监听Object.setPrototypeOf 原型链 -->
+    // 监听Object.setPrototypeOf 原型链 
     setPrototypeOf: function (target, proto) {
 		console.log("setPrototypeOf:", target, proto);
 		return true;
 	},
-    <!-- 监听Object.getOwnPropertyNames、Object.getOwnPropertySymbols、Object.keys -->
+    // 监听Object.getOwnPropertyNames、Object.getOwnPropertySymbols、Object.keys 
     ownKeys: function (target) {
         console.log("ownKeys:", target);
         return ["a", "b", "c"];
@@ -107,7 +107,7 @@ console.log(p.b) // get: {a: 2} 'b' 没有该属性！ undefined
 
 p.b = 20; // set: { a: 2 } b 3;
 
-<!-- 获取原型 -->
+// 获取原型 
 Object.getPrototypeOf(p) // getPrototypeOf: { a: 2, b: 3 }
 
 var desc = {
@@ -145,9 +145,9 @@ Object.keys(p); // ownKeys: { a: 2 } getOwnPropertyDescriptor:  { a: 2 } a  getO
 
 2. 函数篇
 
-```
+```js
 	var handler = {
-        <!-- 监听函数调用，call、apply、bind -->
+        // 监听函数调用，call、apply、bind 
 		apply: function (target, thisArg, argumentsList) {
 			console.log(`apply:`, target, thisArg, argumentsList);
 			return target(argumentsList[0], argumentsList[1]) * 10;
@@ -175,7 +175,7 @@ Object.keys(p); // ownKeys: { a: 2 } getOwnPropertyDescriptor:  { a: 2 } a  getO
 
 3. 撤销代理
 
-```
+```js
 let { proxy, revoke } = Proxy.revocable(
     {
         a: 2,

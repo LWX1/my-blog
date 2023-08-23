@@ -15,12 +15,12 @@ categories:
 - 有意义的命名（见名知意）
 - 函数的参数应该注释其意思
   
-```
-<!-- bad -->
+```js
+// bad
 let a = 10;
 function fun() {}
 
-<!-- good -->
+// good
 let maxCount = 10;
 
 /**
@@ -35,13 +35,13 @@ function getMaxCount(dataArr) {}
 
 - 使用I做为接口前缀
 
-```
-<!-- bad -->
+```js
+// bad
 interface IMenu {
     test: string;
 }
 
-<!-- good -->
+// good
 interface IMenu {
     test: string;
 }
@@ -52,11 +52,11 @@ interface IMenu {
 
 - 使用大驼峰
   
-```
-<!-- bad -->
+```js
+// bad
 enum status {}
 
-<!-- good -->
+// good
 enum Status {}
 ```
 
@@ -64,14 +64,14 @@ enum Status {}
 
 - 全部大写，_ 分隔符隔开
   
-```
-<!-- bad -->
+```js
+// bad
 const successCode = {
     info: 200,
     warning: 300,
 }
 
-<!-- good -->
+// good
 const SUCCESS_CODE = {
     INFO: 200,
     WARNING: 300,
@@ -85,11 +85,11 @@ const SUCCESS_CODE = {
 - 类里面的属性和方法描述
 - 私有属性中，可以使用private就使用，不然使用 _ 前缀
   
-```
-<!-- bad -->
+```js
+// bad
 class person{}
 
-<!-- good -->
+// good
 /**
  * 定义人的特征类
  *
@@ -111,7 +111,7 @@ class Person {
 
 #### 单行
 
-```
+```js
 // 单行注释，斜杠后空一格
 let maxCount = 123;
 ```
@@ -126,11 +126,11 @@ let maxCount = 123;
 
 ### 特定标记值
 
-```
-<!-- bad -->
+```js
+// bad
 let type = 1; // 1 新增 2 修改
 
-<!-- good -->
+// good
 const TYPE = {
     ADD: 1,
     EDIT: 2
@@ -141,8 +141,8 @@ const TYPE = {
 
 - if 超过四个，使用switch；或者类型相同
 
-```
-<!-- bad -->
+```js
+// bad
 let type = typeof variable;
 if (type === 'object') {
 
@@ -150,7 +150,7 @@ if (type === 'object') {
 
 }
 
-<!-- good -->
+// good
 switch (typeof variable) {
     case 'object':
         break;
@@ -171,7 +171,7 @@ switch (typeof variable) {
 
 #### tsconfig.json 配置
 
-```
+```json
 {
   "compilerOptions": {
     /* 基本选项 */
@@ -246,7 +246,7 @@ switch (typeof variable) {
 
 #### prettierrc 配置
 
-```
+```js
 module.exports = {
  
   printWidth: 100, //行宽
@@ -291,7 +291,7 @@ module.exports = {
 }
 ```
 
-```
+```json
 {
     // 使能每一种语言默认格式化规则
     "[html]": {

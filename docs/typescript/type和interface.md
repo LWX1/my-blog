@@ -22,7 +22,7 @@ categories:
 
 ### 都可以描述对象和函数
 
-```
+```ts
 // interface接口
 interface test {
     name: string;
@@ -45,7 +45,7 @@ type fun = (name: string, age: number): void
 -   interface 和 type 可以相互扩展
 -   interface 接口的扩展是 extends。type 类型的扩展是交叉类型&；
 
-```
+```ts
 // 接口
 interface test1{
     name: string;
@@ -83,7 +83,7 @@ type test = test2 & {
 -   type 右边可以为任何类型
 -   interface 右边必须为变量结构
 
-```
+```ts
 type name = string
 type age = [number, string]
 ```
@@ -92,7 +92,7 @@ type age = [number, string]
 
 -   接口可定义多次，且会自动合并
 
-```
+```ts
 interface test1 {
     name: string
 }
@@ -106,7 +106,7 @@ const obj: test1 = {
 
 -   type 定义多次，会报错
 
-```
+```ts
 type test1 {
     name: string
 }
@@ -119,7 +119,7 @@ type test1 { // Duplicate identifier 'test1'
 
 -   type 能使用 in 关键字生成映射类型，但是 interface 不行
 
-```
+```ts
 type Keys = "test1" | "test2";
 type testType = {
     [key in Keys]: string

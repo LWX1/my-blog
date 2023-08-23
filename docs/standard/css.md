@@ -28,7 +28,7 @@ categories:
 
 #### bad
 
-```
+```css
 .form-title {
     font: 'PingFang-SC-medium';
     font-size: 18px;
@@ -46,7 +46,7 @@ categories:
 
 - 统一定义，到时可以统一更改
 
-```
+```css
 $font-normal-color = #222222; // 字体颜色
 $font-light-color = #333333;
 $font-family-medium = 'PingFang-SC-medium';
@@ -79,7 +79,7 @@ $font-family-medium = 'PingFang-SC-medium';
 - 颜色小写
 - 小数点前面添加0
 
-```
+```js
 module.exports = {
     printWidth: 100, // 设置prettier单行输出（不折行）的（最大）长度
 

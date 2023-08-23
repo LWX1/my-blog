@@ -22,7 +22,7 @@ date: 2020-7-2
 4. 都有子节点
 
 #### patch
-```
+```js
 function patch (oldVnode, vnode) {
     // some code
     if (sameVnode(oldVnode, vnode)) {
@@ -43,7 +43,7 @@ function patch (oldVnode, vnode) {
 ```
 
 #### patchVnode
-```
+```js
 patchVnode (oldVnode, vnode) {
     // 获取真实的dom
     const el = vnode.el = oldVnode.el

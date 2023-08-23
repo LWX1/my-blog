@@ -30,11 +30,11 @@ categories:
 ### 手写loader
 1. 配置环境
   + 创建一个vue项目，在vue项目中的webpack中配置自己的loader；
-  ```
+  ```js
   vue init webpack my-loader-project(项目名)
   ```
   + 在根目录下创建loaders文件夹，然后配置resolveLoader属性，该属性是loader的加载路径。
-  ```
+  ```js
   resolveLoader: {
     // 表示先查找自定义的loader，再查找node_modules
     modules: [resolve('loaders'), 'node_modules'],
@@ -42,7 +42,7 @@ categories:
   ```
 #### 手写同步loader（清空代码中所有console.log）
   + 在loaders下创建一个clear-loader.js文件，在loader规则中配置规则；
-```
+```js
 // 规则
 {
   test: /\.vue$/,
@@ -54,7 +54,7 @@ module.exports = function(source){
 }
 ```
 #### 手写异步loader（处理less）
-```
+```js
 // 规则
 {
   test: /\.less$/,
@@ -74,7 +74,7 @@ module.exports = loader;
 ```
 #### 手写img-loader（处理图片文件）
 获取参数需要通过<code style="color: #1a6bac">loader-utils</code>中的getOptions方法；
-```
+```js
 // 规则
 {
   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -112,7 +112,7 @@ module.exports = urlLoader;
   - 设置缓存标识
 5. this.callback
   - 可以同步或者异步调用的并返回多个结果的函数。预期的参数是：
-  ```
+  ```js
   this.callback(
     err: Error | null, // 必填 Error 或 null
     content: string | Buffer,  

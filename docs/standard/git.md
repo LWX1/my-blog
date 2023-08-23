@@ -26,11 +26,11 @@ categories:
 
 #### 创建并拉取代码
 
-```
-<!-- 新增目录，初始化为git代码库 -->
+```bash
+# 新增目录，初始化为git代码库 
 git init [project-name]
 
-<!-- 拉取代码 -->
+# 拉取代码 
 git clone [url]
 
 ```
@@ -38,76 +38,76 @@ git clone [url]
 #### 增加/删除文件
 
 
-```
-<!-- 添加文件到暂存区 -->
+```bash
+# 添加文件到暂存区
 git add [file1] [file2]
 
-<!-- 添加所有文件到暂存区 -->
+# 添加所有文件到暂存区 
 git add .
 
-<!-- 移除工作区文件，并放入暂存区 -->
+# 移除工作区文件，并放入暂存区 
 git rm [file1] [file2]
 
 ```
 
 #### 代码提交
 
-```
-<!-- 提交暂存区到仓库区 -->
+```bash
+# 提交暂存区到仓库区 
 git commit -m [message]
 
-<!-- 推送代码到远程分支 -->
+# 推送代码到远程分支 
 git push origin [branch-name]
 
 ```
 
 #### 分支
 
-```
-<!-- 列出所有的分支 -->
+```bash
+# 列出所有的分支 
 git branch -a
 
-<!-- 新建分支，并切换到该分支 -->
+# 新建分支，并切换到该分支 
 git checkout -b [branch]
 
-<!-- 切换分支 -->
+# 切换分支 
 git checkout [branch-name]
 
-<!-- 新增本地分支推送到远程分支 -->
+# 新增本地分支推送到远程分支 
 git push --set-upstream origin [branch-name]
 
-<!-- 合并指定分支到当前分支 -->
+# 合并指定分支到当前分支 
 git merge [branch-name]
 
-<!-- 删除本地分支 -->
+# 删除本地分支 
 git branch -d [branch-name]
 
-<!-- 删除远程文件 -->
+# 删除远程文件 
 git push origin --delete [branch-name]
 
-<!-- 拉去远程分支合并本地 -->
+# 拉去远程分支合并本地 
 git pull origin [branch-name]
 
 ```
 
 #### 回退版本
 
-```
-<!-- 显示版本历史 -->
+```bash
+# 显示版本历史
 git log
 
-<!-- 版本回退 -->
+# 版本回退
 git reset --hard log_id
 
-<!-- 推送 -->
+# 推送
 git push origin [branch-name]
 
 ```
 
 #### 其他
 
-```
-<!-- 当前状态 -->
+```bash
+# 当前状态 
 git status
 
 ```

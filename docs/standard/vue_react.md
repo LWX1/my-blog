@@ -16,16 +16,16 @@ categories:
 
 ### 文件位置
 
-- 全局通用组件放在 /src/components 下
-- 业务模块放在 /src/pages 下，业务组件放在各自目录的 components 文件夹下
-- 静态文件放在 /src/assets 下，如图片，less/scss 全局变量
-- 配置文件放在 /src/config 下
-- ts 定义 /src/interface 
-- 路由 /src/router
-- 公共通用方法 /src/utils
-- 布局 /src/layouts
-- 使用vuex /src/store
-- 接口 /src/api
+- 全局通用组件放在 <font color="orange">/src/components</font> 下
+- 业务模块放在 <font color="orange">/src/pages</font> 下，业务组件放在各自目录的 <font color="orange">components</font> 文件夹下
+- 静态文件放在 <font color="orange">/src/assets</font> 下，如图片，less/scss 全局变量
+- 配置文件放在 <font color="orange">/src/config</font> 下
+- ts 定义 <font color="orange">/src/interface</font>
+- 路由 <font color="orange">/src/router</font>
+- 公共通用方法 <font color="orange">/src/utils</font>
+- 布局 <font color="orange">/src/layouts</font>
+- 使用 <font color="orange">vuex</font> <font color="orange">/src/store</font>
+- 接口 <font color="orange">/src/api</font>
 
 #### src 目录
 
@@ -76,11 +76,11 @@ categories:
 - 组件中没有内容，应该自闭合
 - 标签中使用为大驼峰
   
-```
-<!-- bad -->
+```js
+// bad
 <table-component> </table-component>
 
-<!-- good -->
+// good
 <TableComponent />
 ```
 
@@ -88,11 +88,11 @@ categories:
 
 - 内容详细，有默认值
   
-```
-<!-- bad -->
+```js
+// bad
 maxCount: Number;
 
-<!-- good -->
+// good
 maxCount: {
     type: Number,
     default: 0,
@@ -101,7 +101,7 @@ maxCount: {
 
 ### API 顺序
 
-```
+```js
 export default {
     name: '',
     extends: '', // extends和mixins都扩展逻辑，需要重点放前面
@@ -136,13 +136,13 @@ export default {
 - 同类型放在一起，并空一行
 - 先放第三方再放自己的组件
   
-```
-<!-- bad -->
+```js
+// bad
 import { Table, Form } from 'element-ui'
 import { getCookies } from '@/utils'
 import { helpers } from 'vuelidate/lib/validators'
 
-<!-- good -->
+// good
 import { Table, Form } from 'element-ui'
 import { helpers } from 'vuelidate/lib/validators'
 
@@ -158,7 +158,7 @@ import { getCookies } from '@/utils'
 
 #### 业务模块
 
-```
+```js
 /********* 数据模块 ************/
 const [staticColumns, setStaticColumns] = useState([]);
 const columns = useMemo(() => {

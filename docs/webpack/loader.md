@@ -23,7 +23,7 @@ isShowComments: false
 - 用于处理图片，可以设置限制大小参数(默认为 8k)，让其转为 base64;超过限制的大小，则使用里面内置的 file-loader 处理；
 - webpack5 内置为<span style="color: #1840ff">asset/inline</span>
 
-```
+```js
 {
     test: /\.(png|jpe?g|gif|svg)$/,
     type: 'asset/inline',
@@ -35,7 +35,7 @@ isShowComments: false
 - 用于转化输出，可用于处理字体图标和 txt 文件；
 - webpack5 内置为<span style="color: #1840ff">asset/resource</span>
 
-```
+```js
 {
     test: /\.(ttf|woff|woff2)$/,
     type: 'asset/resource',
@@ -50,7 +50,7 @@ isShowComments: false
 - 加载文件原始内容，一般用于处理 txt 文本。
 - webpack5 内置为<span style="color: #1840ff">asset/source</span>
 
-```
+```js
 {
     test: /\.txt$/,
     type: 'asset/source',
@@ -61,7 +61,7 @@ isShowComments: false
 
 - 将 es6 以上的语法转化为 es5 的语法
 
-```
+```js
 {
     test: /\.js$/,
     exclude: ['/node_modules/'],
@@ -98,12 +98,12 @@ isShowComments: false
 - 解析 css 文件，但不对样式进行处理，所以一般配合 style-loader 一起使用
 - url 参数，默认为 true；允许为函数进行配置
 
-```
-<!-- 开启时 -->
+```js
+// 开启时
 url('image.png') => require('./image.png')
-<!-- 引用node_modules 使用~表示根目录-->
+// 引用node_modules 使用~表示根目录
 url(~module/image.png) => require('module/image.png')
-<!-- 使用函数 -->
+// 使用函数 
 {
     test: /\.css$/,
     loader: 'css-loader',
@@ -119,8 +119,8 @@ url(~module/image.png) => require('module/image.png')
 
 - modules 参数 默认为 false，为 true 时则开启唯一的 class 值
 
-```
-<!-- webpack配置 -->
+```js
+// webpack配置 
 {
     test: /\.css$/,
     loader: 'css-loader',
@@ -129,7 +129,7 @@ url(~module/image.png) => require('module/image.png')
         localIdentName: '[name]__[local]--[hash:base64:5]', // 转化后的名字
     },
 }
-<!-- css中 -->
+// css中 
 .className {
   background: red;
 } ==> .className_23_aKvs-b8bW2Vg3fwHozO {
@@ -141,14 +141,14 @@ url(~module/image.png) => require('module/image.png')
 
 - 用于处理样式兼容性；如添加浏览器前缀，压缩 css
 
-```
-<!-- package.json 配置兼容的范围-->
+```js
+// package.json 配置兼容的范围
 "browserslist": [
     "> 1%",
     "last 2 versions",
     "ie 9"
 ],
-<!-- webpack -->
+// webpack 
 {
     loader: 'postcss-loader',
     options: {

@@ -51,7 +51,7 @@ categories:
 
 #### useState
 
-```
+```js
 const [state, setState] = useState(initialState);
 ```
 
@@ -60,7 +60,7 @@ const [state, setState] = useState(initialState);
 -   setState 设置的值与上一个值相同，则会忽略更新
 -   setState 也可以传递函数的方式，即
 
-```
+```js
 setState(prevState => {
   return {...state, ...prevState};
 });
@@ -68,7 +68,7 @@ setState(prevState => {
 
 #### useEffect
 
-```
+```js
 useEffect(() => {}, [deps])
 ```
 
@@ -78,7 +78,7 @@ useEffect(() => {}, [deps])
 
 #### useContext
 
-```
+```js
 const value = useContext(React.createContext 的返回值);
 ```
 
@@ -87,7 +87,7 @@ const value = useContext(React.createContext 的返回值);
 
 #### useReducer
 
-```
+```js
 cont reducer = (state, action) => newState;
 const init = (initialArg) => 初始化后的state值
 const [state, dispatch] = useReducer(reducer, initialArg, init);
@@ -100,7 +100,7 @@ const [state, dispatch] = useReducer(reducer, initialArg, init);
 
 #### useCallback
 
-```
+```js
 const memoizedCallback = useCallback(
   () => {
     doSomething(a, b);
@@ -114,7 +114,7 @@ const memoizedCallback = useCallback(
 
 #### useMemo
 
-```
+```js
 const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```
 
@@ -123,14 +123,14 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 
 #### useRef
 
-```
+```js
 const refContainer = useRef(initialValue);
 ```
 
 -   useRef 返回一个可变的 ref 对象，可以在.current 属性中保存一个可变的值。
 -   ref 可以获取到 DOM 节点值，即
 
-```
+```js
 <div ref={myRef} />
 ```
 
@@ -138,7 +138,7 @@ const refContainer = useRef(initialValue);
 
 #### useImperativeHandle
 
-```
+```js
 useImperativeHandle(ref, createHandle, [deps])
 ```
 
@@ -147,7 +147,7 @@ useImperativeHandle(ref, createHandle, [deps])
 
 #### useLayoutEffect
 
-```
+```js
 useEffect(() => {}, [deps])
 ```
 
@@ -156,7 +156,7 @@ useEffect(() => {}, [deps])
 
 #### useDebugValue
 
-```
+```js
 useDebugValue(value)
 ```
 
@@ -164,7 +164,7 @@ useDebugValue(value)
 
 #### useDeferredValue
 
-```
+```js
 const deferredValue = useDeferredValue(value);
 ```
 
@@ -172,7 +172,7 @@ const deferredValue = useDeferredValue(value);
 
 #### useTransition
 
-```
+```js
 const [isPending, startTransition] = useTransition();
 ```
 
@@ -180,7 +180,7 @@ const [isPending, startTransition] = useTransition();
 
 ####
 
-```
+```js
 const id = useId();
 ```
 

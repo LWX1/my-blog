@@ -14,7 +14,7 @@ categories:
 - 路由尽量使用懒加载
 - 定义在一个数组中
 
-```
+```js
 import { prefixRoute } from "src/configs";
 
 import Home from "src/pages/Home";

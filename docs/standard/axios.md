@@ -11,14 +11,14 @@ categories:
 
 ### 响应时间
 
-```
+```js
 axios.defaults.timeout = 300000; // 5 min
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 ```
 
 ### 请求拦截
 
-```
+```js
 axios.interceptors.request.use(
   (config) => {
     // 设置token
@@ -33,7 +33,7 @@ axios.interceptors.request.use(
 
 ### 响应拦截
 
-```
+```js
 axios.interceptors.response.use(
   (response: any) => {
     if (response.status >= 400) {

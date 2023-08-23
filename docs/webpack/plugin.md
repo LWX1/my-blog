@@ -17,7 +17,7 @@ isShowComments: false
 
 - 该插件生成一个 html5 文件，在 body 中使用 script 标签引入 webapck 生成的 bundle；
 
-```
+```js
 new HtmlWebpackPlugin({
     title: 'app', // 默认模板中title标签名字
     filename: 'index.html',  // 输出文件、默认为index.html
@@ -29,7 +29,7 @@ new HtmlWebpackPlugin({
 
 - 该插件用于复制文件，不做任何处理
 
-```
+```js
 new CopyWebpackPlugin([
     {
         from: path.resolve(__dirname, '../static'), // 被复制文件的路径
@@ -44,15 +44,15 @@ new CopyWebpackPlugin([
 
 - 定义全局变量，一般用于环境的判断，或者接口的切换
 
-```
+```js
 new webpack.DefinePlugin({
     serviceApi : "'home/'",
     serviceApi2 : "home",
     'process.env': require('../config/dev.env')
 })
-<!-- 调用 -->
-在组件中直接console.log(serviceApi, serviceApi2, process.env)
-编译成 字符串'home/',变量home和process.env
+// 调用 
+// 在组件中直接console.log(serviceApi, serviceApi2, process.env)
+// 编译成 字符串'home/',变量home和process.env
 ```
 
 ### DllPlugin 和 DLLReferencePlugin
@@ -60,7 +60,7 @@ new webpack.DefinePlugin({
 - 拆分 bundles,DllPlugin 生成一个名为 manifest.json 的文件，再 DLLReferencePlugin 映射到相关的依赖中
 - 创建一个 webpack.dll.conf.js 文件
 
-```
+```js
 module.exports = {
     entry: {
         jquery: ['jquery']
@@ -77,14 +77,12 @@ module.exports = {
         })
     ],
 }
-<!--
-    webpack --config  webpack.dll.conf.js 运行文件，打包进行缓存；
--->
+// webpack --config  webpack.dll.conf.js 运行文件，打包进行缓存；
 ```
 
 - webpack.config.js 中
 
-```
+```js
 // 告诉webpack哪些库不参与打包
 new webpack.DllReferencePlugin({
     manifest: resolve(__dirname, '../dll/dll/mainfest.json')
@@ -105,7 +103,7 @@ new CopyWebpackPlugin([
 
 - 将所有入口中的 chunk 引入的\*.css 单独分离成一个文件；样式将不会嵌入到 script 标签中；
 
-```
+```js
 {
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
@@ -113,7 +111,7 @@ new CopyWebpackPlugin([
         use: "css-loader"
     })
 }
-<!-- plugin -->
+// plugin 
 new ExtractTextPlugin({
     filename: 'css/[name].[contenthash].css',
 }),
@@ -127,7 +125,7 @@ new ExtractTextPlugin({
 
 - 与 extract-text-webpack-plugin 一样，将 css 提取到单独文件，但是前者不再维护，一般用于 webpack4 之前，后者只能适用于 webpack4 或 webpack4 之后
 
-```
+```js
 {
     test: /\.css$/,
     use: [
@@ -137,7 +135,7 @@ new ExtractTextPlugin({
         "css-loader"
     ]
 }
-<!-- plugins -->
+// plugins 
 plugins:[
         new MiniCssExtractPlugin({
             filename: '[name]-main.css', // 入口文件名字
@@ -150,7 +148,7 @@ plugins:[
 
 - 限制 chunk 的数量，以便减少请求
 
-```
+```js
  plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 5, // 限制最多几个chunk
@@ -163,7 +161,7 @@ plugins:[
 
 - 通过合并小于某个大小的 chunk，将 chunk 的体积限制在某个大小之上
 
-```
+```js
 new webpack.optimize.MinChunkSizePlugin({
   minChunkSize: 10000 // Minimum number of characters
 });
@@ -173,7 +171,7 @@ new webpack.optimize.MinChunkSizePlugin({
 
 - 提取和分离代码，主要作用提取公共代码，防止代码被重复打包，拆分过大的 js 文件，合并零散的 js 文件
 
-```
+```js
 optimization: {
     splitChunks: {
       chunks: 'async', // 需要提取的文件，异步加载文件

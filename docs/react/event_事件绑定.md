@@ -17,7 +17,7 @@ categories:
 
 ### 问题
 
-```
+```js
 class App extends React.Component {
     handleClick() {
         console.log(this) // undefined
@@ -39,7 +39,7 @@ class App extends React.Component {
 
 #### render 中使用 bind
 
-```
+```js
 class App extends React.Component {
   handleClick() {
     console.log('this：', this);
@@ -56,7 +56,7 @@ class App extends React.Component {
 
 ### render 中使用箭头函数
 
-```
+```js
 class App extends React.Component {
   handleClick() {
     console.log('this：', this);
@@ -73,7 +73,7 @@ class App extends React.Component {
 
 ### constructor 中 bind
 
-```
+```js
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -94,7 +94,7 @@ class App extends React.Component {
 
 ### 定义时使用箭头函数
 
-```
+```js
 class App extends React.Component {
   handleClick = () => {
     console.log('this：', this);
@@ -114,7 +114,7 @@ class App extends React.Component {
 -   合成事件是 React 模拟原生 DOM 事件的一个跨浏览器包装器，根据 W3C 规范定义合成事件，兼容所有的浏览器。
 -   可以通过 e.nativeEvent 获取原生事件
 
-```
+```js
 const handleClick = (e) => console.log(e.nativeEvent);
 const button = <button onClick={handleClick}>按钮</button>;
 ```
@@ -124,7 +124,7 @@ const button = <button onClick={handleClick}>按钮</button>;
 
 ### 执行顺序
 
-```
+```js
 function App() {
 	const refParent = useRef(null);
 	const refChild = useRef(null);
@@ -177,7 +177,7 @@ react父元素点击
 
 -   阻止事件冒泡
 
-```
+```js
 refChild.current?.addEventListener("click", (e) => {
     e.stopPropagation();
     console.log("原生事件：子元素 DOM 事件监听！");
@@ -193,7 +193,7 @@ React useEffect
 
 -   阻止最外层事件冒泡
 
-```
+```js
 const childClick = (e) => {
     e.nativeEvent.stopImmediatePropagation();
     console.log("react子元素点击");

@@ -10,7 +10,7 @@ isShowComments: false
 
 ## 变量接口
 
-```
+```js
 interface person{
     readonly name: string, // 只读属性，确定了值就不可更改
     age: number,
@@ -25,7 +25,7 @@ let xm:person = {
 ```
 
 ## 函数接口
-```
+```ts
 interface person{
     readonly name: string,
     age: number,
@@ -44,7 +44,7 @@ getPerson({name: '笑话', sex: true, age: 1})
 
 ## 类接口
 
-```
+```ts
 interface person{
     readonly name: string,
     age: number,
@@ -62,7 +62,7 @@ class getPerson implements person{
 
 ```
 ## 继承接口
-```
+```ts
 interface person{
     readonly name: string,
     age: number,
@@ -86,14 +86,14 @@ let obj:work = {
 为了创建一致的定义良好的API，同时也要考虑可重用性。组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这时就需要使用泛型了。
 
 ## 基本泛型
-```
+```js
 function loggingIdentity<T>(arg: Array<T>): Array<T> {
     console.log(arg.length);  
     return arg;
 }
 ```
 ## 多变量泛型
-```
+```js
 function identity <T, U>(value: T, message: U) : [T,U] {
     console.log(message);
     return [value,message];

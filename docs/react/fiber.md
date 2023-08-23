@@ -28,7 +28,7 @@ categories:
 
 ## fiber 对象
 
-```
+```ts
 type Fiber = {
   // 用于标记fiber的WorkTag类型，主要表示当前fiber代表的组件类型如FunctionComponent、ClassComponent等
   tag: WorkTag,

@@ -8,7 +8,7 @@ categories:
 ---
 
 # filter
-```
+```js
 var data = [2, 4, 1, 5, 6];
 console.log('原filter')
 var result = data.filter((item,id,arr) => {
@@ -41,7 +41,7 @@ console.log(res)
 ![结果](/img/2020/filter.jpg);
 
 # map
-```
+```js
 var data = [2, 4, 1, 5, 6];
 console.log('原map')
 var result = data.map((item,id,arr) => {
@@ -74,7 +74,7 @@ console.log(data)
 ![结果](/img/2020/map.jpg);
 
 # reduce
-```
+```js
 var data = [2, 4, 1, 5, 6];
 console.log('原reduce')
 var result = data.reduce((lastItem, currentItem,id,arr) => {

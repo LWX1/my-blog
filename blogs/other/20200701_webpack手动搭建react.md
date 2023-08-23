@@ -12,11 +12,11 @@ categories:
 
 ## 配置环境
 1. 初始化项目 
-```
+```js
 npm init
 ```
 2. 安装项目所需的依赖包
-```
+```js
 // webpack 打包工具
 npm install webpack --save-dev
 
@@ -46,7 +46,7 @@ npm install --save-dev @babel/preset-react
 
 在当前根目录下新建webpack.config.js文件。  
 * webpack.config.js
-```
+```js
 module.exports = {
     entry: './src/index.js',  // 入口，文件需要手动创建
     output: {
@@ -88,7 +88,7 @@ module.exports = {
 }
 ``` 
 * webpack和webpack-dev-server在package.json中配置
-```
+```json
 "scripts": {
     "start": "webpack-dev-server --hot --open", // 热更新打开浏览器
     "build": "webpack --mode production" // 在生产模式下打包
@@ -96,7 +96,7 @@ module.exports = {
 ```
 * babel配置
 babel配置,在根目录上新建babel.config.json文件或者.babelrc.json文件
-```
+```json
 {
     "presets": [
       [
@@ -118,7 +118,7 @@ babel配置,在根目录上新建babel.config.json文件或者.babelrc.json文�
 }
 ```
 另一种babel配置，根目录上新建babel.config.js文件
-```
+```js
 module.exports = function (api) {
   api.cache(true);
 
