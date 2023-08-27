@@ -10,8 +10,16 @@ date: 2020-7-2
 
 ## diff算法
 1. 只比较统一层次，不跨层比较  
-2. 标签名不同，直接删除，不继续深度比较 
+2. 标签名不同
+    -   oldvnode 和 newvnode 都只有文本节点，用新文本替换旧文本
+    -   oldvnode 没有子节点的，newvnode有子节点，增加子节点
+    -   oldvnode 有子节点的，newvnode没有有子节点，删除子节点
 3. 标签名相同，key相同，判定为相同节点，不继续深度比较
+4. oldvnode 和 newvnode 都有子节点
+    -   只比较同级
+    -   使用首尾指针法（oldvnode 和 newvnode 都有首尾标记）
+      - oldS 和 newS 比对，不成功 oldS 和 newE 比对，不成功 oldE 和 newS 比对，不成功 oldE 和 newE 比对
+      - 当比对成功后，分别向中间移动
 
 ### 流程
 通过patch(oldVnode,Vnode)比较是否相同isSameVnode?不相同，Vnode代替oldVnode,并返回Vnode。  
