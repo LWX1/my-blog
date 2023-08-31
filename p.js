@@ -695,20 +695,67 @@ const tree = [
 // }
 
 // 驼峰转化
-function convertUpper(obj) {
-	let keyObj = {};
-	for(let i in obj) {
-		const key = i.replace(/_([a-z])/g, (match, params) => {
-			return params.toUpperCase();
-		})
-		keyObj[key] = obj[i]
+// function convertUpper(obj) {
+// 	let keyObj = {};
+// 	for(let i in obj) {
+// 		const key = i.replace(/_([a-z])/g, (match, params) => {
+// 			return params.toUpperCase();
+// 		})
+// 		keyObj[key] = obj[i]
+// 	}
+// 	return keyObj
+// }
+
+// const obj = {
+// 	'a_bc_c': 2,
+// 	'cD_gc': 3
+// }
+
+// console.log(convertUpper(obj))
+
+// 扁平化
+// function flatter(arr) {
+// 	let result = [];
+// 	arr.forEach(item => {
+// 		if(Array.isArray(item)) {
+// 			result = result.concat(flatter(item))
+// 		}else {
+// 			result.push(item)
+// 		}
+// 	})
+// 	return result;
+// }
+
+// const arr = [1, 3, [2, 3, [5, 6, [7]], [8, 9], 9, [10, [11, [12]]]]];
+
+// console.log(flatter(arr))
+
+// 去重
+// function clearRepeat(arr) {
+// 	return [...new Set(arr)]
+// }
+
+// console.log(clearRepeat([2, 4, 2, 5, 4, 1, 1, 7]))
+
+function myNew(fn, ...args) {
+	const obj = Object.create(fn.prototype);
+	const result = fn.apply(obj, args)
+	return result instanceof Object? result: obj
+}
+
+Function.prototype.myCall(obj, ...args) {
+	obj.fn = this || window;
+	const result = obj.fn(...args);
+	delete obj.fn;
+	return result;
+}
+
+Function.prototype.myBind(obj, ...args) {
+	var self = this || window;
+	return function() {
+		return self.call(obj, ...args)
 	}
-	return keyObj
+	
 }
 
-const obj = {
-	'a_bc_c': 2,
-	'cD_gc': 3
-}
 
-console.log(convertUpper(obj))
