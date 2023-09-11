@@ -737,25 +737,48 @@ const tree = [
 
 // console.log(clearRepeat([2, 4, 2, 5, 4, 1, 1, 7]))
 
-function myNew(fn, ...args) {
-	const obj = Object.create(fn.prototype);
-	const result = fn.apply(obj, args)
-	return result instanceof Object? result: obj
-}
+// function myNew(fn, ...args) {
+// 	const obj = Object.create(fn.prototype);
+// 	const result = fn.apply(obj, args)
+// 	return result instanceof Object? result: obj
+// }
 
-Function.prototype.myCall(obj, ...args) {
-	obj.fn = this || window;
-	const result = obj.fn(...args);
-	delete obj.fn;
-	return result;
-}
+// Function.prototype.myCall(obj, ...args) {
+// 	obj.fn = this || window;
+// 	const result = obj.fn(...args);
+// 	delete obj.fn;
+// 	return result;
+// }
 
-Function.prototype.myBind(obj, ...args) {
-	var self = this || window;
-	return function() {
-		return self.call(obj, ...args)
-	}
+// Function.prototype.myBind(obj, ...args) {
+// 	var self = this || window;
+// 	return function() {
+// 		return self.call(obj, ...args)
+// 	}
 	
+// }
+
+class ReactiveEffect{
+	fn=null;
+	constructor(fn) {
+		this.fn = fn;
+	}
 }
 
+function fun1(instance, initvalue) {
+	const componentUpdateFn = () => {
+		console.log(instance, initvalue)
+	}
+	const effect = new ReactiveEffect(
+		componentUpdateFn
+	)
+	return effect
+}
 
+var a = {a:1}, b={b:1}, c={c:1}, d={d:1}
+
+
+const fn = [fun1(a, b), fun1(c, d)]
+fn.forEach(item => {
+	console.log(item.fn())
+})

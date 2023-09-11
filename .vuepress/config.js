@@ -131,7 +131,15 @@ module.exports = {
 				"生命周期",
 				"hooks",
 			],
-			"/docs/vue/": ["communicate", "diff"],
+			"/docs/vue/": [
+				"源码-数据结构",
+				"源码-事件",
+				"源码-响应数据",
+				"源码-createApp",
+				"源码-双向数据绑定",
+				"communicate", 
+				"diff"
+			],
 			"/docs/webpack/": ["base", "loader", "plugin", "optimization"],
 			"/docs/three/": ["introduce", "plugin"],
 			"/docs/canvas/": ["boll"],
