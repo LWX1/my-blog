@@ -105,7 +105,8 @@ export function createElement(type, config, children) {
 }
 ```
 
-## ReactElement
+### ReactElement
+
 ```js
 const ReactElement = function(type, key, ref, self, source, owner, props) {
   const element = {
@@ -128,3 +129,13 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
 };
 ```
 
+## 总结
+
+### 优点
+
+- 当我们在更改**dom** 的操作中，假如直接一个个操作**dom**，可能会导致卡顿的现象，毕竟操作**dom** 的代价是比较大的，但我们可以通过操作**js**，通过计算，先保存需要更改的**dom**，然后再批量去更改**dom**，这样就可以在牺牲**js**的前提下，减少**dom** 的开发，通过**vnode**，我们不需要手动去操作**dom**，只需编写好**view-model** 的代码，实现了便捷。
+- **vnode** 不仅可以让我们节省**dom** 的开销，我们通过**vode** 还可以实现跨平台开发，毕竟**vnode** 是一个对象，通过遍历这个对象，我们可以转换为各个平台中，我们需要的对应代码。
+
+### 缺点
+
+- 不管**vnode** 是怎么把**js** 转为**dom**，其实都要经过操作真实的**dom**，所以我们直接操作真实的**dom**，一定会比**vnode** 的速度要快，毕竟**vnode** 需要通过一系列的计算才去批量操作真实的**dom**。

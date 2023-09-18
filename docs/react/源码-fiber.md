@@ -116,6 +116,80 @@ function FiberNode(
 }
 ```
 
+## FiberRoot
+
+```js
+  // 模式ConcurrentRoot/ LegacyRoot
+  this.tag = tag;
+  // 容器的dom
+  this.containerInfo = containerInfo;
+  // 孩子
+  this.pendingChildren = null;
+  // rootFiber
+  this.current = null;
+  this.pingCache = null;
+  // 是否完成工作
+  this.finishedWork = null;
+  // 超时处理
+  this.timeoutHandle = noTimeout;
+  this.context = null;
+  this.pendingContext = null;
+  this.callbackNode = null;
+  this.callbackPriority = NoLane;
+  this.eventTimes = createLaneMap(NoLanes);
+  this.expirationTimes = createLaneMap(NoTimestamp);
+
+  // 优先级
+  
+  this.pendingLanes = NoLanes;
+  this.suspendedLanes = NoLanes;
+  this.pingedLanes = NoLanes;
+  this.expiredLanes = NoLanes;
+  this.mutableReadLanes = NoLanes;
+  this.finishedLanes = NoLanes;
+
+  this.entangledLanes = NoLanes;
+  this.entanglements = createLaneMap(NoLanes);
+
+  this.identifierPrefix = identifierPrefix;
+  this.onRecoverableError = onRecoverableError;
+
+  if (enableCache) {
+    this.pooledCache = null;
+    this.pooledCacheLanes = NoLanes;
+  }
+
+  if (supportsHydration) {
+    this.mutableSourceEagerHydrationData = null;
+  }
+
+  if (enableSuspenseCallback) {
+    this.hydrationCallbacks = null;
+  }
+
+  if (enableTransitionTracing) {
+    this.transitionCallbacks = null;
+    const transitionLanesMap = (this.transitionLanes = []);
+    for (let i = 0; i < TotalLanes; i++) {
+      transitionLanesMap.push(null);
+    }
+  }
+
+  if (enableProfilerTimer && enableProfilerCommitHooks) {
+    this.effectDuration = 0;
+    this.passiveEffectDuration = 0;
+  }
+
+  if (enableUpdaterTracking) {
+    this.memoizedUpdaters = new Set();
+    const pendingUpdatersLaneMap = (this.pendingUpdatersLaneMap = []);
+    for (let i = 0; i < TotalLanes; i++) {
+      pendingUpdatersLaneMap.push(new Set());
+    }
+  }
+
+```
+
 ## fiberRoot 和 rootFiber
 
 - fiberRoot 是 fiber 数据结构对象，是最外层的对象，整个 react 渲染树的起点，里面的 containerInfo 属性就是 id 为 root 的 div; 

@@ -43,7 +43,7 @@ if (componentUpdateQueue === null) {
 }
 ```
 
-## mount 阶段 所有的 hooks
+### mount 阶段 所有的 hooks
 
 ```js
 HooksDispatcherOnMountInDEV = {
@@ -166,7 +166,7 @@ HooksDispatcherOnMountInDEV = {
 };
 ```
 
-## update 阶段 所有的 hooks
+### update 阶段 所有的 hooks
 
 ```js
 HooksDispatcherOnUpdateInDEV = {
@@ -439,7 +439,7 @@ function pushEffect(tag, create, destroy, deps) {
 }
 ```
 
-## updateWorkInProgressHook
+### updateWorkInProgressHook
 
 ```js
 function updateWorkInProgressHook() {

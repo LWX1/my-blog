@@ -8,13 +8,9 @@ categories:
     - react源码
 ---
 
-### createRoot
+## 源码
 
-- 创建 fiber，并让 fiberRoot 和 rootFiber 相关联
-- 和其他fiber 相对比，rootFiber tag 为 3，确定 mode 为 某个模式（concurrentRoot、LegacyRoot）
-- 确定rootFiber 的初始更新队列queue 
-- 在入口节点，即root 中添加属性 __reactContainer$，指向rootFiber
-- 绑定fiberRoot 在 render this 的 _internalRoot 属性上
+### createRoot
    
 ```js
 /**
@@ -23,14 +19,15 @@ categories:
  * @returns 返回 FiberRootNode
  */
 export function createRoot(container, options) {
+	// 判断是否为有效的容器 nodeType 为element_node 1, document_node 9, document_fragment_node 11
 	if (!isValidContainer(container)) {
 		throw new Error(
 			"createRoot(...): Target container is not a DOM element."
 		);
 	}
-
+	// 判断容器是否在body 上和是否使用createRoot
 	warnIfReactDOMContainerInDEV(container);
-
+	// 是否严格模式
 	let isStrictMode = false;
 	let concurrentUpdatesByDefaultOverride = false;
 	let identifierPrefix = "";
@@ -38,27 +35,7 @@ export function createRoot(container, options) {
 	let transitionCallbacks = null;
 
 	if (options !== null && options !== undefined) {
-		if (__DEV__) {
-			if (options.hydrate) {
-				console.warn(
-					"hydrate through createRoot is deprecated. Use ReactDOMClient.hydrateRoot(container, <App />) instead."
-				);
-			} else {
-				if (
-					typeof options === "object" &&
-					options !== null &&
-					options.$$typeof === REACT_ELEMENT_TYPE
-				) {
-					console.error(
-						"You passed a JSX element to createRoot. You probably meant to " +
-							"call root.render instead. " +
-							"Example usage:\n\n" +
-							"  let root = createRoot(domContainer);\n" +
-							"  root.render(<App />);"
-					);
-				}
-			}
-		}
+		
 		if (options.unstable_strictMode === true) {
 			isStrictMode = true;
 		}
@@ -101,9 +78,10 @@ export function createRoot(container, options) {
 		transitionCallbacks
 	);
 
-	//- 把dom标志，就是在dom中，添加__reactContainer 的变量，
+	//- 把dom标志，就是在dom中，添加__reactContainer 的属性，指向rootFiber，
 	markContainerAsRoot(root.current, container);
 
+	// 假如容器节点是注释节点，则取父级
 	const rootContainerElement =
 		container.nodeType === COMMENT_NODE ? container.parentNode : container;
 
@@ -238,6 +216,7 @@ export function createFiberRoot(
 ### initializeUpdateQueue
 
 ```js
+
 export function initializeUpdateQueue(fiber) {
 	const queue = {
 		baseState: fiber.memoizedState,
@@ -356,6 +335,64 @@ export function markContainerAsRoot(hostRoot, node) {
 }
 ```
 
+### listenToAllSupportedEvents
+
+```js
+export function listenToAllSupportedEvents(rootContainerElement) {
+  if (!rootContainerElement[listeningMarker]) {
+	// 添加容器事件标志
+    rootContainerElement[listeningMarker] = true;
+	// 给所有的事件添加代理事件
+    allNativeEvents.forEach((domEventName) => {
+      // We handle selectionchange separately because it
+      // doesn't bubble and needs to be on the document.
+      if (domEventName !== "selectionchange") {
+        if (!nonDelegatedEvents.has(domEventName)) {
+          listenToNativeEvent(domEventName, false, rootContainerElement);
+        }
+        listenToNativeEvent(domEventName, true, rootContainerElement);
+      }
+    });
+	// 获取document 节点
+    const ownerDocument =
+      rootContainerElement.nodeType === DOCUMENT_NODE
+        ? rootContainerElement
+        : rootContainerElement.ownerDocument;
+    if (ownerDocument !== null) {
+      // The selectionchange event also needs deduplication
+      // but it is attached to the document.
+      if (!ownerDocument[listeningMarker]) {
+		// 添加document 事件标记
+        ownerDocument[listeningMarker] = true;
+        listenToNativeEvent("selectionchange", false, ownerDocument);
+      }
+    }
+  }
+}
+```
+
+### listenToNativeEvent
+
+```js
+export function listenToNativeEvent(
+  domEventName,
+  isCapturePhaseListener,
+  target
+) {
+
+  let eventSystemFlags = 0;
+  if (isCapturePhaseListener) {
+    eventSystemFlags |= IS_CAPTURE_PHASE;
+  }
+  addTrappedEventListener(
+    target,
+    domEventName,
+    eventSystemFlags,
+    isCapturePhaseListener
+  );
+}
+```
+
 ### 挂载 render 和 unmount
 
 ```js
@@ -441,3 +478,12 @@ ReactDOMHydrationRoot.prototype.unmount = ReactDOMRoot.prototype.unmount =
 		}
 	};
 ```
+
+## 总结
+
+- 确定**mode** 为 某个模式 **concurrentRoot**、**LegacyRoot**
+- 通过**createHostRootFiber** 创建**rootFiber**，**FiberRootNode** 创建**fiberRoot**，并让**fiberRoot** 和**rootFiber** 相关联，在**rootFiber** 上创建初始状态**memoizedState**，创建初始更新队列**queue**
+- 在入口节点，即容器**root** 中添加属性**__reactContainer$**，指向**rootFiber**，可以通过该属性判断是否是初次渲染。
+- 在**listenToAllSupportedEvents** 添加事件代理
+- 绑定**fiberRoot** 在**render this** 的**_internalRoot** 属性上
+- 原型链上添加容器**render** 渲染和**unmount** 卸载方法。

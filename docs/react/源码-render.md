@@ -8,6 +8,8 @@ categories:
     - react源码
 ---
 
+## 源码
+
 ### render
 
 - 获取当前fiber 时间和优先级
@@ -16,11 +18,6 @@ categories:
 - enqueueUpdate 更新队列，队列存储在fiber 的updateQueue 中
 - markUpdateLaneFromFiberToRoot 将当前节点的所有上级节点赋值lane 优先级，并返回fiberRoot 
 - ensureRootIsScheduled 获取最高优先级任务对比，确保调度优先级，并通过port.postMessage 调度任务
-- workLoop 递归调用，构建fiber树
-- performConcurrentWorkOnRoot 中判断空余时间，情况副作用
-- renderRootSync 中prepareFreshStack 创建rootWorkInProgress 树和workInProgressRoot，即fiberRoot 和 rootFiber，workInProgress 也为 rootWorkInProgress
-- workLoopSync 构建workInProgress，通过performUnitOfWork 中unitOfWork（workInProgree）树和 current 树（workInProgress.alternate === current），在beginWork 中 current.memoizedProps 和 workInProgress.pendingProps 进行对比，是否应该更新，用didReceiveUpdate 变量进行记录，通过processUpdateQueue 方法更新状态；completeUnitOfWork 当没有子节点，则完成当前fiber。
-
 
 ```js
 ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render =
@@ -30,42 +27,6 @@ ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render =
 			throw new Error("Cannot update an unmounted root.");
 		}
 
-		if (__DEV__) {
-			if (typeof arguments[1] === "function") {
-				console.error(
-					"render(...): does not support the second callback argument. " +
-						"To execute a side effect after rendering, declare it in a component body with useEffect()."
-				);
-			} else if (isValidContainer(arguments[1])) {
-				console.error(
-					"You passed a container to the second argument of root.render(...). " +
-						"You don't need to pass it again since you already passed it to create the root."
-				);
-			} else if (typeof arguments[1] !== "undefined") {
-				console.error(
-					"You passed a second argument to root.render(...) but it only accepts " +
-						"one argument."
-				);
-			}
-
-			const container = root.containerInfo;
-
-			if (container.nodeType !== COMMENT_NODE) {
-				const hostInstance = findHostInstanceWithNoPortals(
-					root.current
-				);
-				if (hostInstance) {
-					if (hostInstance.parentNode !== container) {
-						console.error(
-							"render(...): It looks like the React-rendered content of the " +
-								"root container was removed without using React. This is not " +
-								"supported and will cause errors. Instead, call " +
-								"root.unmount() to empty a root's container."
-						);
-					}
-				}
-			}
-		}
 		//- 更新容器
 		updateContainer(children, root, null, null);
 	};
@@ -81,9 +42,7 @@ ReactDOMHydrationRoot.prototype.render = ReactDOMRoot.prototype.render =
  * @callback 回调函数，一般也为 null
  */
 export function updateContainer(element, container, parentComponent, callback) {
-	if (__DEV__) {
-		onScheduleRoot(container, element);
-	}
+	
 	// rootFiber
 	const current = container.current;
 	// 获取当前时间
@@ -104,23 +63,6 @@ export function updateContainer(element, container, parentComponent, callback) {
 		container.pendingContext = context;
 	}
 
-	if (__DEV__) {
-		if (
-			ReactCurrentFiberIsRendering &&
-			ReactCurrentFiberCurrent !== null &&
-			!didWarnAboutNestedUpdates
-		) {
-			didWarnAboutNestedUpdates = true;
-			console.error(
-				"Render methods should be a pure function of props and state; " +
-					"triggering nested component updates from render is not allowed. " +
-					"If necessary, trigger nested updates in componentDidUpdate.\n\n" +
-					"Check the render method of %s.",
-				getComponentNameFromFiber(ReactCurrentFiberCurrent) || "Unknown"
-			);
-		}
-	}
-
 	// 创建更新对象
 	const update = createUpdate(eventTime, lane);
 	// Caution: React DevTools currently depends on this property
@@ -130,15 +72,6 @@ export function updateContainer(element, container, parentComponent, callback) {
 
 	callback = callback === undefined ? null : callback;
 	if (callback !== null) {
-		if (__DEV__) {
-			if (typeof callback !== "function") {
-				console.error(
-					"render(...): Expected the last optional `callback` argument to be a " +
-						"function. Instead received: %s.",
-					callback
-				);
-			}
-		}
 		// 更新回调
 		update.callback = callback;
 	}
@@ -164,6 +97,7 @@ export function updateContainer(element, container, parentComponent, callback) {
  * 
  */
 export function enqueueUpdate(fiber, update, lane) {
+	// 队列
 	const updateQueue = fiber.updateQueue;
 	if (updateQueue === null) {
 		// Only occurs if the fiber has been unmounted.
@@ -171,21 +105,6 @@ export function enqueueUpdate(fiber, update, lane) {
 	}
 
 	const sharedQueue = updateQueue.shared;
-
-	if (__DEV__) {
-		if (
-			currentlyProcessingQueue === sharedQueue &&
-			!didWarnUpdateInsideUpdate
-		) {
-			console.error(
-				"An update (setState, replaceState, or forceUpdate) was scheduled " +
-					"from inside an update function. Update functions should be pure, " +
-					"with zero side-effects. Consider using componentDidUpdate or a " +
-					"callback."
-			);
-			didWarnUpdateInsideUpdate = true;
-		}
-	}
 
 	if (isUnsafeClassRenderPhaseUpdate(fiber)) {
 		// This is an unsafe render phase update. Add directly to the update
@@ -216,7 +135,8 @@ export function enqueueUpdate(fiber, update, lane) {
 
 ```js
 /**
- * @fiber
+ * 创建循坏链表 并把链表queue 放入 concurrentQueues 中
+ * @fiber rootFiber
  * @queue 更新队列 queue.interleaved = update;
  * @update 更新循环链表
  * @lane 优先级
@@ -243,6 +163,8 @@ export function enqueueConcurrentClassUpdate(fiber, queue, update, lane) {
 
 ### markUpdateLaneFromFiberToRoot
 
+- 更新优先级
+
 ```js
 function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
 	// Update the source fiber's lanes
@@ -250,14 +172,6 @@ function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
 	let alternate = sourceFiber.alternate;
 	if (alternate !== null) {
 		alternate.lanes = mergeLanes(alternate.lanes, lane);
-	}
-	if (__DEV__) {
-		if (
-			alternate === null &&
-			(sourceFiber.flags & (Placement | Hydrating)) !== NoFlags
-		) {
-			warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-		}
 	}
 	// Walk the parent path to the root and update the child lanes.
 	let node = sourceFiber;
@@ -290,6 +204,8 @@ function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
 
 ```js
 /**
+ * 判断是否进入无限循环，标记常量 50
+ * 
  * @root fiberRoot
  * @fiber rootFiber
  * @lane 优先级
@@ -298,18 +214,6 @@ function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
 export function scheduleUpdateOnFiber(root, fiber, lane, eventTime) {
 	// 检测是否进入无限循环，标记常量 50
 	checkForNestedUpdates();
-
-	if (__DEV__) {
-		if (isRunningInsertionEffect) {
-			console.error("useInsertionEffect must not schedule updates.");
-		}
-	}
-
-	if (__DEV__) {
-		if (isFlushingPassiveEffects) {
-			didScheduleUpdateDuringPassiveEffects = true;
-		}
-	}
 
 	// Mark that the root has a pending update.
 	// 标记 fiberRoot 渲染的更新时间
@@ -425,6 +329,8 @@ export function scheduleUpdateOnFiber(root, fiber, lane, eventTime) {
 
 ### ensureRootIsScheduled
 
+- 更新优先级任务，并判断任务是否过期，重新设置下个任务得优先级
+
 ```js
 // Use this function to schedule a task for a root. There's only one task per
 // root; if a task was already scheduled, we'll check to make sure the priority
@@ -438,7 +344,7 @@ function ensureRootIsScheduled(root, currentTime) {
 
 	// Check if any lanes are being starved by other work. If so, mark them as
 	// expired so we know to work on those next.
-	// 在工作之前标签优先级任务
+	// 检查是否有工作占用，有，则标记为过期，这样我们知道在下次处理它
 	markStarvedLanesAsExpired(root, currentTime);
 
 	// Determine the next lanes to work on, and their priority.
@@ -476,19 +382,6 @@ function ensureRootIsScheduled(root, currentTime) {
 			existingCallbackNode !== fakeActCallbackNode
 		)
 	) {
-		if (__DEV__) {
-			// If we're going to re-use an existing task, it needs to exist.
-			// Assume that discrete update microtasks are non-cancellable and null.
-			// TODO: Temporary until we confirm this warning is not fired.
-			if (
-				existingCallbackNode == null &&
-				existingCallbackPriority !== SyncLane
-			) {
-				console.error(
-					"Expected scheduled callback to exist. This error is likely caused by a bug in React. Please file an issue."
-				);
-			}
-		}
 		// The priority hasn't changed. We can reuse the existing task. Exit.
 		return;
 	}
@@ -561,7 +454,7 @@ function ensureRootIsScheduled(root, currentTime) {
 				schedulerPriorityLevel = NormalSchedulerPriority;
 				break;
 		}
-		// 任务调度
+		// 任务调度回调
 		newCallbackNode = scheduleCallback(
 			schedulerPriorityLevel,
 			performConcurrentWorkOnRoot.bind(null, root)
@@ -574,6 +467,10 @@ function ensureRootIsScheduled(root, currentTime) {
 ```
 
 ### scheduleCallback = Scheduler_scheduleCallback
+
+- 调度后任务回调 performConcurrentWorkOnRoot，并绑定了FiberRoot
+- 把任务放到全局变量taskQueue 数组中
+- 在requestHostCallback 中把flushWork 赋值给scheduledHostCallback，并触发postMessage 推送到performWorkUntilDeadline 方法中，在performWorkUntilDeadline 中触发flushWork 进入workLoop 构建节点
 
 ```js
 function unstable_scheduleCallback(priorityLevel, callback, options) {
@@ -664,6 +561,8 @@ function unstable_scheduleCallback(priorityLevel, callback, options) {
 
 ### flushWork
 
+- 开始workLoop 调度fiber，构建fiber 树
+
 ```js
 function flushWork(hasTimeRemaining, initialTime) {
 	if (enableProfiling) {
@@ -713,6 +612,9 @@ function flushWork(hasTimeRemaining, initialTime) {
 
 ### workLoop
 
+- 获取taskQueue 中的任务，调度任务构建树
+- 执行回调函数performConcurrentWorkOnRoot，并在函数中构建workInProgress 树。
+
 ```js
 function workLoop(hasTimeRemaining, initialTime) {
 	let currentTime = initialTime;
@@ -732,13 +634,16 @@ function workLoop(hasTimeRemaining, initialTime) {
 		}
 		const callback = currentTask.callback;
 		if (typeof callback === "function") {
+			// 制空回调函数
 			currentTask.callback = null;
 			currentPriorityLevel = currentTask.priorityLevel;
+			// 时间是否过期
 			const didUserCallbackTimeout =
 				currentTask.expirationTime <= currentTime;
 			if (enableProfiling) {
 				markTaskRun(currentTask, currentTime);
 			}
+			// 调用回调函数performConcurrentWorkOnRoot，已提前绑定了第一个参数fiberRoot
 			const continuationCallback = callback(didUserCallbackTimeout);
 			currentTime = getCurrentTime();
 			if (typeof continuationCallback === "function") {
@@ -779,6 +684,9 @@ function workLoop(hasTimeRemaining, initialTime) {
 
 ### performConcurrentWorkOnRoot
 
+- 清空当前事件时间和优先级
+- 复原副作用
+
 ```js
 // This is the entry point for every concurrent task, i.e. anything that
 // goes through Scheduler.
@@ -790,6 +698,7 @@ function performConcurrentWorkOnRoot(root, didTimeout) {
 
 	// Since we know we're in a React event, we can clear the current
 	// event time. The next update will compute a new event time.
+	// 清空当前事件时间
 	currentEventTime = NoTimestamp;
 	currentEventTransitionLane = NoLanes;
 
@@ -818,6 +727,7 @@ function performConcurrentWorkOnRoot(root, didTimeout) {
 
 	// Determine the next lanes to work on, using the fields stored
 	// on the root.
+	// 获取下一个优先级
 	let lanes = getNextLanes(
 		root,
 		root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes
@@ -942,6 +852,8 @@ function performConcurrentWorkOnRoot(root, didTimeout) {
 
 ### renderRootSync
 
+- 执行workLoopSync，循环构建fiber 节点
+
 ```js
 function renderRootSync(root, lanes) {
 	const prevExecutionContext = executionContext;
@@ -1033,6 +945,7 @@ function renderRootSync(root, lanes) {
 /** @noinline */
 function workLoopSync() {
 	// Already timed out, so perform work without checking if we need to yield.
+	// workInProgress 不为空
 	while (workInProgress !== null) {
 		performUnitOfWork(workInProgress);
 	}
@@ -1040,6 +953,10 @@ function workLoopSync() {
 ```
 
 ### performUnitOfWork
+
+- 获取current 树，设计workInProgress 树的时间
+- 调用beginWork 开始构建fiber 并返回下一个fiber
+- 通过workInProgress.tag 判断是那种组件
 
 ```js
 function performUnitOfWork(unitOfWork) {
@@ -1051,6 +968,7 @@ function performUnitOfWork(unitOfWork) {
 
 	let next;
 	if (enableProfilerTimer && (unitOfWork.mode & ProfileMode) !== NoMode) {
+		// 设置fiber 的开始时间
 		startProfilerTimer(unitOfWork);
 		//- 开始工作
 		next = beginWork(current, unitOfWork, subtreeRenderLanes);
@@ -1075,26 +993,12 @@ function performUnitOfWork(unitOfWork) {
 
 ### beginWork
 
+- 在函数assignFiberPropertiesInDEV（已屏蔽） 中复制workInProgress 的部分参数给fiber
+- 比较current 树和workInProgress 树的属性是否发生改变，或者context 是否改变，改变则复制didReceiveUpdate 为true
+
 ```js
 function beginWork(current, workInProgress, renderLanes) {
-	if (__DEV__) {
-		if (workInProgress._debugNeedsRemount && current !== null) {
-			// This will restart the begin phase with a new fiber.
-			return remountFiber(
-				current,
-				workInProgress,
-				createFiberFromTypeAndProps(
-					workInProgress.type,
-					workInProgress.key,
-					workInProgress.pendingProps,
-					workInProgress._debugOwner || null,
-					workInProgress.mode,
-					workInProgress.lanes
-				)
-			);
-		}
-	}
-
+	
 	if (current !== null) {
 		const oldProps = current.memoizedProps;
 		const newProps = workInProgress.pendingProps;
@@ -1115,7 +1019,7 @@ function beginWork(current, workInProgress, renderLanes) {
 		} else {
 			// Neither props nor legacy context changes. Check if there's a pending
 			// update or context change.
-			// 检查当前fiber节点上的lanes是否存在于renderLanes中
+			// 检查当前fiber节点上是否存在待更新的下上文
 			const hasScheduledUpdateOrContext = checkScheduledUpdateOrContext(
 				current,
 				renderLanes
@@ -1484,3 +1388,22 @@ function completeUnitOfWork(unitOfWork) {
 	}
 }
 ```
+
+## 总结
+
+### 核心
+
+- **ensureRootIsScheduled** 把容器推进调度任务中，然后通过**Scheduler_scheduleCallback** 调度任务回调，触发**requestHostCallback** 中的**postMessage**，进入**flushWork**，开始队列任务。
+- 在**flushWork** 的**workLoop** 中查看**taskQueue** 任务队列是否为空，不为空则回调**performConcurrentWorkOnRoot** 复原副作用和初始事件和优先级，当所有的**fiber** 构建完成，则进入到**finishConcurrentRender** 的**commitRoot** 中，提交渲染页面。
+- 在**renderRootSync** 中**prepareFreshStack** 创建**rootWorkInProgress** 树和**workInProgressRoot**，即**fiberRoot** 和 **rootFiber**，**workInProgress** 也为 **rootWorkInProgress**
+- 在**renderRootSync** 中开始同步任务构建**fiber** ,通过**workLoopSync** 判断**workInProgress** 是否为空，不为空则循环构建，直到所有的节点构建完成。
+- 通过**performUnitOfWork** 中的**beginWork** 判断**tag** 属性确定对应的**react** 节点，调用相应的功能函数进行**fiber** 的构建，再通过**mountIndeterminateComponent** 返回**child** 节点给**workInProgress**
+- 通过**renderWithHooks** 进入到每个组件，并返回**vnode**
+- 通过**completeUnitOfWork** 获取**sibling** 和完成已经构建的节点。循环构建节点，直到所有的节点完成。
+  
+### 说明
+
+- **workLoopSync** 构建**workInProgress**，通过**performUnitOfWork** 中**unitOfWork（workInProgree）**树和 **current** 树 **（workInProgress.alternate === current）**，在**beginWork** 中 **current.memoizedProps** 和 **workInProgress.pendingProps** 进行对比，是否应该更新，用**didReceiveUpdate** 变量进行记录，通过**processUpdateQueue** 方法更新状态；**completeUnitOfWork** 当没有子节点，则完成当前**fiber**。
+- **fiber** 的构建完成顺序，从根节点开始，先构建根节点，即**rootFiber**，再判断有没有**child**，有**child** 则一直向下构建，没有则完成当前节点，再判断**sibling** 兄弟节点，有兄弟节点，再找兄弟的孩子节点，有孩子，还是一直向下构建，即先判断孩子，没有孩子则找兄弟，没有兄弟则**return** 向上找父母，当没有孩子，则完成该节点。
+
+- 
