@@ -19,6 +19,14 @@ module.exports = {
 				content: "width=device-width,initial-scale=1,user-scalable=no",
 			},
 		],
+		[
+			"script",
+			{
+				// hooks 解决自动回到顶部的bug
+				src: "/js/hooksScroll.js",
+			},
+		],
+
 	],
 	theme: "reco",
 	themeConfig: {

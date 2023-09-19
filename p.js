@@ -758,27 +758,37 @@ const tree = [
 	
 // }
 
-class ReactiveEffect{
-	fn=null;
-	constructor(fn) {
-		this.fn = fn;
-	}
-}
+// class ReactiveEffect{
+// 	fn=null;
+// 	constructor(fn) {
+// 		this.fn = fn;
+// 	}
+// }
 
-function fun1(instance, initvalue) {
-	const componentUpdateFn = () => {
-		console.log(instance, initvalue)
-	}
-	const effect = new ReactiveEffect(
-		componentUpdateFn
-	)
-	return effect
-}
+// function fun1(instance, initvalue) {
+// 	const componentUpdateFn = () => {
+// 		console.log(instance, initvalue)
+// 	}
+// 	const effect = new ReactiveEffect(
+// 		componentUpdateFn
+// 	)
+// 	return effect
+// }
 
-var a = {a:1}, b={b:1}, c={c:1}, d={d:1}
+// var a = {a:1}, b={b:1}, c={c:1}, d={d:1}
 
 
-const fn = [fun1(a, b), fun1(c, d)]
-fn.forEach(item => {
-	console.log(item.fn())
-})
+// const fn = [fun1(a, b), fun1(c, d)]
+// fn.forEach(item => {
+// 	console.log(item.fn())
+// })
+
+(function(){
+    var addEventListener = window.addEventListener;
+	console.log(addEventListener)
+    function addEventListenerHooks(name, fun, isCapture) {
+        console.log(fun, [fun]);
+        return addEventListener(name, fun, isCapture)
+    }
+    window.addEventListener = addEventListenerHooks;
+})()
